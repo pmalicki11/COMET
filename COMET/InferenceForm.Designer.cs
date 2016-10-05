@@ -30,7 +30,7 @@
         {
             this.checkButton = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
             this.resultLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -54,12 +54,12 @@
             this.header.Text = "To evaluate a single object, enter the value of each of the criteria, and then cl" +
     "ick \"Check\" button.";
             // 
-            // textBox1
+            // resultTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(435, 211);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(52, 20);
-            this.textBox1.TabIndex = 2;
+            this.resultTextBox.Location = new System.Drawing.Point(435, 211);
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.Size = new System.Drawing.Size(52, 20);
+            this.resultTextBox.TabIndex = 2;
             // 
             // resultLabel
             // 
@@ -76,7 +76,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 243);
             this.Controls.Add(this.resultLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.header);
             this.Controls.Add(this.checkButton);
             this.Name = "InferenceForm";
@@ -90,7 +90,7 @@
 
         private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.Label header;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.Label resultLabel;
     }
 }
