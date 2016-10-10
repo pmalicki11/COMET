@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.criterionName = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.varValue = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // criterionName
@@ -42,18 +42,18 @@
             this.criterionName.TabIndex = 0;
             this.criterionName.Text = "label1";
             // 
-            // textBox1
+            // varValue
             // 
-            this.textBox1.Location = new System.Drawing.Point(65, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.varValue.Location = new System.Drawing.Point(65, 4);
+            this.varValue.Name = "varValue";
+            this.varValue.Size = new System.Drawing.Size(100, 20);
+            this.varValue.TabIndex = 1;
             // 
             // FuzzyVariableControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.varValue);
             this.Controls.Add(this.criterionName);
             this.Name = "FuzzyVariableControl";
             this.Size = new System.Drawing.Size(174, 26);
@@ -65,6 +65,6 @@
         #endregion
 
         private System.Windows.Forms.Label criterionName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox varValue;
     }
 }

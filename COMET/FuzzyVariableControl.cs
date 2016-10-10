@@ -25,5 +25,13 @@ namespace COMET
                 return criterionName.Text;
             }
         }
+
+        public String ValueOfVariable
+        {
+            get
+            {
+                return varValue.Text;
+            }
+        }
     }
 }

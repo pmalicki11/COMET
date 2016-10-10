@@ -50,6 +50,17 @@ namespace COMET
         {
             generateFuzzySystem();
 
+            Dictionary<FuzzyVariable, double> inputValues = new Dictionary<FuzzyVariable,double>();
+            
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                inputValues.Add(fuzzySystem.InputByName(inputVariables[i].NameOfVariable), Convert.ToDouble(inputVariables[i].ValueOfVariable));
+            }
+            
+            FuzzyVariable outputResult = fuzzySystem.OutputByName("output");
+            Dictionary<FuzzyVariable, double> result = fuzzySystem.Calculate(inputValues);
+
+            resultTextBox.Text = result[outputResult].ToString("f4");
         }
 
         private void generateFuzzySystem()
@@ -65,7 +76,7 @@ namespace COMET
             systemInputVariables = new FuzzyVariable[objectList[0].Size()];
             for (int i = 0; i < objectList[0].Size(); i++)
             {
-                systemInputVariables[i] = new FuzzyVariable(objectList[0].names[i], 0.0, 1000000.00);
+                systemInputVariables[i] = new FuzzyVariable(objectList[0].names[i], 0.0, 1000000.0);
                 List<String> values = new List<string>();
                 for (int j = 0; j < objectList.Count; j++)
                 {
@@ -85,7 +96,7 @@ namespace COMET
 
                     if (j == 0)
                     {
-                        x1 = 0.0;
+                        x1 = -1.0;
                         x2 = Convert.ToDouble(values[j]);
                         x3 = Convert.ToDouble(values[j + 1]);
                     }
@@ -93,7 +104,7 @@ namespace COMET
                     {
                         x1 = Convert.ToDouble(values[j - 1]);
                         x2 = Convert.ToDouble(values[j]);
-                        x3 = 1000000.0;
+                        x3 = 2.0;
                     }
                     else
                     {
@@ -101,7 +112,7 @@ namespace COMET
                         x2 = Convert.ToDouble(values[j]);
                         x3 = Convert.ToDouble(values[j + 1]);
                     }
-                    systemInputVariables[i].Terms.Add(new FuzzyTerm(values[j], new TriangularMembershipFunction(x1, x2, x3)));
+                    systemInputVariables[i].Terms.Add(new FuzzyTerm(values[j].Replace(",", "."), new TriangularMembershipFunction(x1, x2, x3)));
                 }
                 fuzzySystem.Input.Add(systemInputVariables[i]);
             }
@@ -119,7 +130,7 @@ namespace COMET
 
                 if (i == 0)
                 {
-                    x1 = 0.0;
+                    x1 = -1.0;
                     x2 = objectList[i].Preference;
                     x3 = objectList[i + 1].Preference;
                 }
@@ -127,7 +138,7 @@ namespace COMET
                 {
                     x1 = objectList[i - 1].Preference;
                     x2 = objectList[i].Preference;
-                    x3 = 1.0;
+                    x3 = 2.0;
                 }
                 else
                 {
@@ -135,7 +146,7 @@ namespace COMET
                     x2 = objectList[i].Preference;
                     x3 = objectList[i + 1].Preference;
                 }
-                outputVariable.Terms.Add(new FuzzyTerm(objectList[i].Preference.ToString(), new TriangularMembershipFunction(x1, x2, x3)));
+                outputVariable.Terms.Add(new FuzzyTerm(objectList[i].Preference.ToString().Replace(",", "."), new TriangularMembershipFunction(x1, x2, x3)));
             }
             fuzzySystem.Output.Add(outputVariable);
 
@@ -149,13 +160,14 @@ namespace COMET
                 String ruleString = "if";
                 for (int j = 0; j < inputVariables.Count(); j++)
                 {
-                    ruleString += " (" + objectList[0].names[j] + " is " + objectList[i].values[j] + ")";
+                    ruleString += " (" + objectList[0].names[j] + " is " + Convert.ToDouble(objectList[i].values[j]).ToString() + ")";
                     if (j < inputVariables.Count() - 1)
                     {
                         ruleString += " and ";
                     }
                 }
                 ruleString += " then (output is " + objectList[i].Preference.ToString() + ")";
+                ruleString = ruleString.Replace(",", ".");
                 try
                 {
                     fuzzySystem.Rules.Add(fuzzySystem.ParseRule(ruleString));
