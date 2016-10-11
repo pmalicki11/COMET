@@ -50,7 +50,7 @@ namespace COMET
         {
             generateFuzzySystem();
 
-            Dictionary<FuzzyVariable, double> inputValues = new Dictionary<FuzzyVariable,double>();
+            Dictionary<FuzzyVariable, Double> inputValues = new Dictionary<FuzzyVariable,Double>();
             
             for (int i = 0; i < inputVariables.Count; i++)
             {
@@ -58,7 +58,7 @@ namespace COMET
             }
             
             FuzzyVariable outputResult = fuzzySystem.OutputByName("output");
-            Dictionary<FuzzyVariable, double> result = fuzzySystem.Calculate(inputValues);
+            Dictionary<FuzzyVariable, Double> result = fuzzySystem.Calculate(inputValues);
 
             resultTextBox.Text = result[outputResult].ToString("f4");
         }
@@ -77,7 +77,7 @@ namespace COMET
             for (int i = 0; i < objectList[0].Size(); i++)
             {
                 systemInputVariables[i] = new FuzzyVariable(objectList[0].names[i], 0.0, 1000000.0);
-                List<String> values = new List<string>();
+                List<String> values = new List<String>();
                 for (int j = 0; j < objectList.Count; j++)
                 {
                     if (!values.Contains(objectList[j].values[i]))
@@ -104,7 +104,7 @@ namespace COMET
                     {
                         x1 = Convert.ToDouble(values[j - 1]);
                         x2 = Convert.ToDouble(values[j]);
-                        x3 = 2.0;
+                        x3 = 1000000.0;
                     }
                     else
                     {
@@ -157,10 +157,10 @@ namespace COMET
             rules = new List<MamdaniFuzzyRule>();
             for (int i = 0; i < objectList.Count(); i++)
             {
-                String ruleString = "if";
+                String ruleString = "if ";
                 for (int j = 0; j < inputVariables.Count(); j++)
-                {
-                    ruleString += " (" + objectList[0].names[j] + " is " + Convert.ToDouble(objectList[i].values[j]).ToString() + ")";
+                {                   
+                    ruleString += "(" + objectList[0].names[j] + " is " + objectList[i].values[j].ToString() + ")";
                     if (j < inputVariables.Count() - 1)
                     {
                         ruleString += " and ";
