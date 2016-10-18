@@ -107,6 +107,7 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TriangularMembershipFunction.cs" />
     <EmbeddedResource Include="FuzzyVariableControl.resx">
       <DependentUpon>FuzzyVariableControl.cs</DependentUpon>
     </EmbeddedResource>

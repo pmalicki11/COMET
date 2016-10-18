@@ -8,18 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ExcelLibrary.SpreadSheet;
-using AI.Fuzzy.Library;
+//using AI.Fuzzy.Library;
 
 namespace COMET
 {
     public partial class InferenceForm : Form
     {
-        List<CharacteristicObject> objectList;
-        List<FuzzyVariableControl> inputVariables;
+        #region Old variables
+        /*
         List<MamdaniFuzzyRule> rules;
         MamdaniFuzzySystem fuzzySystem;
-        FuzzyVariable[] systemInputVariables;
-
+        FuzzyVariable[] systemInputVariables;*/
+        #endregion
+        
+        List<CharacteristicObject> objectList;
+        List<FuzzyVariableControl> inputVariables;
+        
+        
+        
         public InferenceForm(List<CharacteristicObject> list)
         {
             InitializeComponent();
@@ -48,7 +54,8 @@ namespace COMET
 
         private void checkButton_Click(object sender, EventArgs e)
         {
-            generateFuzzySystem();
+            #region using of old functions
+            /*generateFuzzySystem();
 
             Dictionary<FuzzyVariable, Double> inputValues = new Dictionary<FuzzyVariable,Double>();
             
@@ -58,14 +65,94 @@ namespace COMET
             }
             
             FuzzyVariable outputResult = fuzzySystem.OutputByName("output");
-            Dictionary<FuzzyVariable, Double> result = fuzzySystem.Calculate(inputValues);
 
-            resultTextBox.Text = result[outputResult].ToString("f4");
+            Dictionary<FuzzyVariable, Double> result = fuzzySystem.Calculate(inputValues);
+            
+
+            resultTextBox.Text = result[outputResult].ToString("f4");*/
+            #endregion
+
+
+            Dictionary<String, List<Double>> criteria = getCriteriaFromObjectList();
+
+            Dictionary<String, List<TriangularMembershipFunction>> msFunctions = genetareMembershipFunctions(criteria);
+
+            Dictionary<CharacteristicObject, Double> activationValues = new Dictionary<CharacteristicObject, Double>();
+
+            
+
+            Console.WriteLine("test");
         }
 
-        private void generateFuzzySystem()
+        private Dictionary<String, List<TriangularMembershipFunction>> genetareMembershipFunctions(Dictionary<String, List<Double>> criteria)
+        {
+            Dictionary<String, List<TriangularMembershipFunction>> msFunctions = new Dictionary<String, List<TriangularMembershipFunction>>();
+
+            foreach (String name in criteria.Keys)
+            {
+                List<TriangularMembershipFunction> functions = new List<TriangularMembershipFunction>();
+
+                for (int i = 0; i < criteria[name].Count; i++)
+                {
+                    Double x1 = 0.0;
+                    Double x2 = 0.0;
+                    Double x3 = 0.0;
+
+                    x2 = criteria[name][i];
+
+                    if (i == 0)
+                    {
+                        x1 = x2;
+                    }
+                    else
+                    {
+                        x1 = criteria[name][i - 1];
+                    }
+
+                    if (i + 1 == criteria[name].Count)
+                    {
+                        x3 = x2;
+                    }
+                    else
+                    {
+                        x3 = criteria[name][i + 1];
+                    }
+                    functions.Add(new TriangularMembershipFunction(x1, x2, x3));
+                }
+                msFunctions.Add(name, functions);
+            }
+            return msFunctions;
+        }
+
+        private Dictionary<string, List<double>> getCriteriaFromObjectList()
+        {
+            Dictionary<String, List<Double>> criteria;
+            criteria = new Dictionary<string, List<Double>>();
+            for (int i = 0; i < objectList[0].Size(); i++)
+            {
+                List<Double> criterionValues = new List<Double>();
+                for (int j = 0; j < objectList.Count; j++)
+                {
+                    if (criterionValues.Count == 0)
+                    {
+                        criterionValues.Add(Convert.ToDouble(objectList[j].values[i]));
+                    }
+                    else if (!criterionValues.Contains(Convert.ToDouble(objectList[j].values[i])))
+                    {
+                        criterionValues.Add(Convert.ToDouble(objectList[j].values[i]));
+                    }
+                }
+                criterionValues.Sort();
+                criteria.Add(objectList[0].names[i], criterionValues);
+            }
+            return criteria;
+        }
+
+        #region Old functions
+        /*private void generateFuzzySystem()
         {
             fuzzySystem = new MamdaniFuzzySystem();
+            fuzzySystem.AggregationMethod = AI.Fuzzy.Library.AggregationMethod.Sum;
             generateSystemInputVariables();
             generateSystemOutputVariables();
             generateSystemRules();
@@ -177,6 +264,7 @@ namespace COMET
                     MessageBox.Show(string.Format("Parsing exception: {0}", ex.Message));
                 }
             }
-        }
+        }*/
+        #endregion
     }
 }
