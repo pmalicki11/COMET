@@ -31,11 +31,11 @@ namespace COMET
             }
             else if (x < x2)
             {
-                return 1 - (x2 - x) / (x2 - x1);
+                return (x2 - x) / (x2 - x1);
             }
             else
             {
-                return 1 - (x3 - x) / (x3 - x2);
+                return (x3 - x) / (x3 - x2);
             }
         }
     }

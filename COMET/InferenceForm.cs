@@ -79,9 +79,24 @@ namespace COMET
 
             Dictionary<CharacteristicObject, Double> activationValues = new Dictionary<CharacteristicObject, Double>();
 
+            List<Double> endMfValue = new List<Double>();
+            for (int i = 0; i < objectList.Count; i++)
+            {
+                Double criterionMfValue = 1.0;
+                for (int j = 0; j < objectList[0].Size(); j++)
+                {
+                    String criterionName = objectList[i].names[j];
+                    Double criterionValue = Convert.ToDouble(objectList[i].values[j]);
+                    Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable); 
+                    int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
+                    Double currentValue = Math.Round(msFunctions[criterionName][indexOfCriterion].getValue(inputX), 4);
+                    criterionMfValue *= currentValue;
+                }
+                endMfValue.Add(criterionMfValue * objectList[i].Preference);
+            }
+            resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
             
 
-            Console.WriteLine("test");
         }
 
         private Dictionary<String, List<TriangularMembershipFunction>> genetareMembershipFunctions(Dictionary<String, List<Double>> criteria)

@@ -30,7 +30,7 @@ namespace COMET
         {
             get
             {
-                return varValue.Text.Replace(",", ".");
+                return varValue.Text.Replace(".", ",");
             }
         }
     }
