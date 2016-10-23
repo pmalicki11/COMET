@@ -90,9 +90,9 @@ namespace COMET
                     Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable); 
                     int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
                     Double currentValue = Math.Round(msFunctions[criterionName][indexOfCriterion].getValue(inputX), 4);
-                    criterionMfValue *= currentValue;
+                    criterionMfValue = Math.Round(criterionMfValue,4) * currentValue;
                 }
-                endMfValue.Add(criterionMfValue * objectList[i].Preference);
+                endMfValue.Add(criterionMfValue = Math.Round(criterionMfValue * objectList[i].Preference, 4));
             }
             resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
             
