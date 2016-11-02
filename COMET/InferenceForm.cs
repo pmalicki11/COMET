@@ -35,6 +35,7 @@ namespace COMET
 
         private void generateControls()
         {
+
             inputVariables = new List<FuzzyVariableControl>();
             for (int i = 0; i < objectList[0].Size(); i++)
             {
@@ -45,7 +46,7 @@ namespace COMET
                 }
                 else
                 {
-                    variableControl.Location = new Point(12, 40);
+                    variableControl.Location = new Point(12, 400);
                 }
                 Controls.Add(variableControl);
                 inputVariables.Add(variableControl);
@@ -72,7 +73,7 @@ namespace COMET
             resultTextBox.Text = result[outputResult].ToString("f4");*/
             #endregion
 
-
+            //add validation
             Dictionary<String, List<Double>> criteria = getCriteriaFromObjectList();
 
             Dictionary<String, List<TriangularMembershipFunction>> msFunctions = genetareMembershipFunctions(criteria);
@@ -89,10 +90,10 @@ namespace COMET
                     Double criterionValue = Convert.ToDouble(objectList[i].values[j]);
                     Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable); 
                     int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
-                    Double currentValue = Math.Round(msFunctions[criterionName][indexOfCriterion].getValue(inputX), 4);
-                    criterionMfValue = Math.Round(criterionMfValue,4) * currentValue;
+                    Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
+                    criterionMfValue = criterionMfValue * currentValue;
                 }
-                endMfValue.Add(criterionMfValue = Math.Round(criterionMfValue * objectList[i].Preference, 4));
+                endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
             }
             resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
             

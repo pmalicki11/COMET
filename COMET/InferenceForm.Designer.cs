@@ -32,11 +32,12 @@
             this.header = new System.Windows.Forms.Label();
             this.resultTextBox = new System.Windows.Forms.TextBox();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.plotsGroupBox = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // checkButton
             // 
-            this.checkButton.Location = new System.Drawing.Point(387, 182);
+            this.checkButton.Location = new System.Drawing.Point(858, 530);
             this.checkButton.Name = "checkButton";
             this.checkButton.Size = new System.Drawing.Size(100, 23);
             this.checkButton.TabIndex = 0;
@@ -56,7 +57,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(435, 211);
+            this.resultTextBox.Location = new System.Drawing.Point(906, 559);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -64,17 +65,26 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(384, 214);
+            this.resultLabel.Location = new System.Drawing.Point(855, 562);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
             this.resultLabel.Text = "Result";
             // 
+            // plotsGroupBox
+            // 
+            this.plotsGroupBox.Location = new System.Drawing.Point(12, 35);
+            this.plotsGroupBox.Name = "plotsGroupBox";
+            this.plotsGroupBox.Size = new System.Drawing.Size(988, 359);
+            this.plotsGroupBox.TabIndex = 4;
+            this.plotsGroupBox.TabStop = false;
+            // 
             // InferenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 243);
+            this.ClientSize = new System.Drawing.Size(1012, 638);
+            this.Controls.Add(this.plotsGroupBox);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.header);
@@ -92,5 +102,6 @@
         private System.Windows.Forms.Label header;
         private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.GroupBox plotsGroupBox;
     }
 }
