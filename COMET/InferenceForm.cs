@@ -72,7 +72,7 @@ namespace COMET
                     chart.Series.Add(series);
                 }
 
-                plotsGroupBox.Controls.Add(chart);
+                plotsPanel.Controls.Add(chart);
             }
         }
 

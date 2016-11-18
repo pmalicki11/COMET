@@ -33,6 +33,8 @@
             this.resultTextBox = new System.Windows.Forms.TextBox();
             this.resultLabel = new System.Windows.Forms.Label();
             this.plotsGroupBox = new System.Windows.Forms.GroupBox();
+            this.plotsPanel = new System.Windows.Forms.Panel();
+            this.plotsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkButton
@@ -73,11 +75,20 @@
             // 
             // plotsGroupBox
             // 
+            this.plotsGroupBox.Controls.Add(this.plotsPanel);
             this.plotsGroupBox.Location = new System.Drawing.Point(12, 35);
             this.plotsGroupBox.Name = "plotsGroupBox";
             this.plotsGroupBox.Size = new System.Drawing.Size(940, 346);
             this.plotsGroupBox.TabIndex = 4;
             this.plotsGroupBox.TabStop = false;
+            // 
+            // plotsPanel
+            // 
+            this.plotsPanel.AutoScroll = true;
+            this.plotsPanel.Location = new System.Drawing.Point(6, 9);
+            this.plotsPanel.Name = "plotsPanel";
+            this.plotsPanel.Size = new System.Drawing.Size(928, 331);
+            this.plotsPanel.TabIndex = 0;
             // 
             // InferenceForm
             // 
@@ -94,6 +105,7 @@
             this.Name = "InferenceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InferenceForm";
+            this.plotsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,5 +118,6 @@
         private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.Label resultLabel;
         private System.Windows.Forms.GroupBox plotsGroupBox;
+        private System.Windows.Forms.Panel plotsPanel;
     }
 }
