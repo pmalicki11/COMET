@@ -37,7 +37,7 @@
             // 
             // checkButton
             // 
-            this.checkButton.Location = new System.Drawing.Point(858, 530);
+            this.checkButton.Location = new System.Drawing.Point(852, 436);
             this.checkButton.Name = "checkButton";
             this.checkButton.Size = new System.Drawing.Size(100, 23);
             this.checkButton.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(906, 559);
+            this.resultTextBox.Location = new System.Drawing.Point(900, 465);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -65,7 +65,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(855, 562);
+            this.resultLabel.Location = new System.Drawing.Point(849, 468);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             this.plotsGroupBox.Location = new System.Drawing.Point(12, 35);
             this.plotsGroupBox.Name = "plotsGroupBox";
-            this.plotsGroupBox.Size = new System.Drawing.Size(988, 359);
+            this.plotsGroupBox.Size = new System.Drawing.Size(940, 346);
             this.plotsGroupBox.TabIndex = 4;
             this.plotsGroupBox.TabStop = false;
             // 
@@ -83,13 +83,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 638);
+            this.ClientSize = new System.Drawing.Size(967, 638);
             this.Controls.Add(this.plotsGroupBox);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.header);
             this.Controls.Add(this.checkButton);
+            this.MaximumSize = new System.Drawing.Size(983, 677);
+            this.MinimumSize = new System.Drawing.Size(983, 677);
             this.Name = "InferenceForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InferenceForm";
             this.ResumeLayout(false);
             this.PerformLayout();

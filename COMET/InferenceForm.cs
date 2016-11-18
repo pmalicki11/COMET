@@ -7,11 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using ExcelLibrary.SpreadSheet;
 //using AI.Fuzzy.Library;
 
 namespace COMET
 {
+    struct PointD
+    {
+        public Double X;
+        public Double Y;
+        public PointD(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+
     public partial class InferenceForm : Form
     {
         #region Old variables
@@ -23,19 +35,49 @@ namespace COMET
         
         List<CharacteristicObject> objectList;
         List<FuzzyVariableControl> inputVariables;
-        
-        
+        Dictionary<String, List<Double>> criteria;
+        Dictionary<String, List<TriangularMembershipFunction>> msFunctions;
         
         public InferenceForm(List<CharacteristicObject> list)
         {
             InitializeComponent();
             objectList = list;
+            criteria = getCriteriaFromObjectList();
+            msFunctions = genetareMembershipFunctions(criteria);
             generateControls();
         }
 
         private void generateControls()
         {
+            genPlots();
+            genBoxesForInputValues();
+        }
 
+        private void genPlots()
+        {
+            List<String> keys = new List<String>(this.criteria.Keys);
+            for (int i = 0; i < criteria.Count; i++)
+            {
+                Chart chart = new Chart();
+                chart.Location = new Point(i * 310 + 10, 10);
+                chart.Titles.Add(keys[i]);
+                ChartArea chartArea = new ChartArea();
+                chartArea.AxisX.MajorGrid.LineDashStyle = chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
+                chart.ChartAreas.Add(chartArea);
+                for (int j = 0; j < criteria[keys[i]].Count; j++)
+                {
+                    Series series = new Series();
+                    series.ChartType = SeriesChartType.Line;
+                    setPointsToSeries(getPointsForSeries(keys[i], criteria[keys[i]][j]), ref series);
+                    chart.Series.Add(series);
+                }
+
+                plotsGroupBox.Controls.Add(chart);
+            }
+        }
+
+        private void genBoxesForInputValues()
+        {
             inputVariables = new List<FuzzyVariableControl>();
             for (int i = 0; i < objectList[0].Size(); i++)
             {
@@ -50,6 +92,54 @@ namespace COMET
                 }
                 Controls.Add(variableControl);
                 inputVariables.Add(variableControl);
+            }
+        }
+
+        private LinkedList<PointD> getPointsForSeries(String key, Double val)
+        {
+            LinkedList<PointD> points = new LinkedList<PointD>();
+            List<String> keys = new List<String>(this.criteria.Keys);
+
+            for (int i = 0; i < criteria[key].Count; i++)
+            {
+                if (criteria[key][i] == val)
+                {
+                    points.AddLast(new PointD(val, 1));
+                }
+                else
+                {
+                    points.AddLast(new PointD(criteria[key][i], 0));
+                }
+            }
+            PointD first = points.First();
+            PointD last = points.Last();
+
+            if (first.Y == 0)
+            {
+                points.AddFirst(new PointD(first.X - 2, 0));
+            }
+            else
+            {
+                points.AddFirst(new PointD(first.X - 2, 1));
+            }
+
+            if (last.Y == 0)
+            {
+                points.AddLast(new PointD(last.X + 2, 0));
+            }
+            else
+            {
+                points.AddLast(new PointD(last.X + 2, 1));
+            }
+
+            return points;
+        }
+
+        private void setPointsToSeries(LinkedList<PointD> points, ref Series series)
+        {
+            foreach (PointD point in points)
+            {
+                series.Points.AddXY(point.X, point.Y);
             }
         }
 
@@ -74,10 +164,7 @@ namespace COMET
             #endregion
 
             //add validation
-            Dictionary<String, List<Double>> criteria = getCriteriaFromObjectList();
-
-            Dictionary<String, List<TriangularMembershipFunction>> msFunctions = genetareMembershipFunctions(criteria);
-
+            
             Dictionary<CharacteristicObject, Double> activationValues = new Dictionary<CharacteristicObject, Double>();
 
             List<Double> endMfValue = new List<Double>();
