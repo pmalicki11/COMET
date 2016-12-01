@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,12 +32,12 @@ namespace COMET
         MamdaniFuzzySystem fuzzySystem;
         FuzzyVariable[] systemInputVariables;*/
         #endregion
-        
+
         List<CharacteristicObject> objectList;
         List<FuzzyVariableControl> inputVariables;
         Dictionary<String, List<Double>> criteria;
         Dictionary<String, List<TriangularMembershipFunction>> msFunctions;
-        
+
         public InferenceForm(List<CharacteristicObject> list)
         {
             InitializeComponent();
@@ -163,8 +163,14 @@ namespace COMET
             resultTextBox.Text = result[outputResult].ToString("f4");*/
             #endregion
 
-            //add validation
-            
+            resultTextBox.Text = "";
+
+            if (isEmptyField())
+            {
+                MessageBox.Show("Any field can't be empty");
+                return;
+            }
+
             Dictionary<CharacteristicObject, Double> activationValues = new Dictionary<CharacteristicObject, Double>();
 
             List<Double> endMfValue = new List<Double>();
@@ -175,15 +181,25 @@ namespace COMET
                 {
                     String criterionName = objectList[i].names[j];
                     Double criterionValue = Convert.ToDouble(objectList[i].values[j]);
-                    Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable); 
+                    Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable);
                     int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
+
+                    Double criterionMin = criteria[criterionName].Min();
+                    Double criterionMax = criteria[criterionName].Max();
+
+                    if (inputX < criterionMin || inputX > criterionMax)
+                    {
+                        MessageBox.Show("Input value for " + criterionName + "(" + inputX + ") is out of domain (" + criterionMin + " - " + criterionMax + ")");
+                        return;
+                    }
+
                     Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
                     criterionMfValue = criterionMfValue * currentValue;
                 }
                 endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
             }
             resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
-            
+
 
         }
 
@@ -249,6 +265,18 @@ namespace COMET
                 criteria.Add(objectList[0].names[i], criterionValues);
             }
             return criteria;
+        }
+
+        private Boolean isEmptyField()
+        {
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                if (inputVariables[i].ValueOfVariable == "")
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #region Old functions
