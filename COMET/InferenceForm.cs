@@ -9,21 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ExcelLibrary.SpreadSheet;
-//using AI.Fuzzy.Library;
 
 namespace COMET
 {
-    struct PointD
-    {
-        public Double X;
-        public Double Y;
-        public PointD(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
-    }
-
     public partial class InferenceForm : Form
     {
         #region Old variables
@@ -37,6 +25,7 @@ namespace COMET
         List<FuzzyVariableControl> inputVariables;
         Dictionary<String, List<Double>> criteria;
         Dictionary<String, List<TriangularMembershipFunction>> msFunctions;
+        Dictionary<String, Plot> plots;
 
         public InferenceForm(List<CharacteristicObject> list)
         {
@@ -55,25 +44,51 @@ namespace COMET
 
         private void genPlots()
         {
-            List<String> keys = new List<String>(this.criteria.Keys);
+            #region OLD
+            //List<String> keys = new List<String>(this.criteria.Keys);
+            //charts = new List<Chart>();
+            //for (int i = 0; i < criteria.Count; i++)
+            //{
+            //    Chart chart = new Chart();
+            //    chart.Location = new Point(i * 310 + 10, 10);
+            //    chart.Titles.Add(keys[i]);
+            //    chart.Name = keys[i];
+            //    ChartArea chartArea = new ChartArea();
+            //    chartArea.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
+            //    chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
+            //    chartArea.AxisX.IsMarginVisible = false;
+            //    chartArea.AxisY.IsMarginVisible = false;
+            //    chartArea.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+            //    chart.ChartAreas.Add(chartArea);
+            //    for (int j = 0; j < criteria[keys[i]].Count; j++)
+            //    {
+            //        Series series = new Series();
+            //        series.ChartType = SeriesChartType.Line;
+            //        setPointsToSeries(getPointsForSeries(keys[i], criteria[keys[i]][j]), ref series);
+            //        chart.Series.Add(series);
+            //    }
+            //    charts.Add(chart);
+            //    plotsPanel.Controls.Add(chart);
+            //}
+            #endregion
+
+            List<String> variableNames = new List<String>(this.criteria.Keys);
+            plots = new Dictionary<String, Plot>();
+
             for (int i = 0; i < criteria.Count; i++)
             {
-                Chart chart = new Chart();
-                chart.Location = new Point(i * 310 + 10, 10);
-                chart.Titles.Add(keys[i]);
-                ChartArea chartArea = new ChartArea();
-                chartArea.AxisX.MajorGrid.LineDashStyle = chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dot;
-                chart.ChartAreas.Add(chartArea);
-                for (int j = 0; j < criteria[keys[i]].Count; j++)
+                Plot plot = new Plot(variableNames[i]);
+                plot.Location = new Point(i * 310 + 10, 10);
+                for (int j = 0; j < criteria[variableNames[i]].Count; j++)
                 {
                     Series series = new Series();
-                    series.ChartType = SeriesChartType.Line;
-                    setPointsToSeries(getPointsForSeries(keys[i], criteria[keys[i]][j]), ref series);
-                    chart.Series.Add(series);
+                    setPointsToSeries(getPointsForSeries(variableNames[i], criteria[variableNames[i]][j]), ref series);
+                    plot.addSeries(series);
                 }
-
-                plotsPanel.Controls.Add(chart);
+                plots.Add(variableNames[i], plot);
+                plotsPanel.Controls.Add(plot);
             }
+
         }
 
         private void genBoxesForInputValues()
@@ -111,27 +126,6 @@ namespace COMET
                     points.AddLast(new PointD(criteria[key][i], 0));
                 }
             }
-            PointD first = points.First();
-            PointD last = points.Last();
-
-            if (first.Y == 0)
-            {
-                points.AddFirst(new PointD(first.X - 2, 0));
-            }
-            else
-            {
-                points.AddFirst(new PointD(first.X - 2, 1));
-            }
-
-            if (last.Y == 0)
-            {
-                points.AddLast(new PointD(last.X + 2, 0));
-            }
-            else
-            {
-                points.AddLast(new PointD(last.X + 2, 1));
-            }
-
             return points;
         }
 
@@ -164,6 +158,7 @@ namespace COMET
             #endregion
 
             resultTextBox.Text = "";
+            removeIntersectionsFromPlots();
 
             if (isEmptyField())
             {
@@ -194,6 +189,10 @@ namespace COMET
                     }
 
                     Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
+
+                    plots[criterionName].addIntersections(inputX, currentValue);
+                    
+
                     criterionMfValue = criterionMfValue * currentValue;
                 }
                 endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
@@ -201,6 +200,14 @@ namespace COMET
             resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
 
 
+        }
+
+        private void removeIntersectionsFromPlots()
+        {
+            foreach (Plot plot in plots.Values)
+            {
+                plot.removeIntersections();
+            }
         }
 
         private Dictionary<String, List<TriangularMembershipFunction>> genetareMembershipFunctions(Dictionary<String, List<Double>> criteria)

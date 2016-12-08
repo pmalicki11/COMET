@@ -100,6 +100,13 @@
     <Compile Include="PairJudgment.Designer.cs">
       <DependentUpon>PairJudgment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plot.Designer.cs">
+      <DependentUpon>Plot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PointD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartForm.cs">
@@ -123,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PairJudgment.resx">
       <DependentUpon>PairJudgment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plot.resx">
+      <DependentUpon>Plot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
