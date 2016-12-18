@@ -34,12 +34,13 @@
             this.resultLabel = new System.Windows.Forms.Label();
             this.plotsGroupBox = new System.Windows.Forms.GroupBox();
             this.plotsPanel = new System.Windows.Forms.Panel();
+            this.backButton = new System.Windows.Forms.Button();
             this.plotsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkButton
             // 
-            this.checkButton.Location = new System.Drawing.Point(852, 436);
+            this.checkButton.Location = new System.Drawing.Point(852, 387);
             this.checkButton.Name = "checkButton";
             this.checkButton.Size = new System.Drawing.Size(100, 23);
             this.checkButton.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(900, 465);
+            this.resultTextBox.Location = new System.Drawing.Point(900, 416);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -67,7 +68,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(849, 468);
+            this.resultLabel.Location = new System.Drawing.Point(849, 419);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
@@ -90,11 +91,22 @@
             this.plotsPanel.Size = new System.Drawing.Size(928, 331);
             this.plotsPanel.TabIndex = 0;
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(18, 387);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(100, 23);
+            this.backButton.TabIndex = 1;
+            this.backButton.Text = "<- Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // InferenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 638);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.plotsGroupBox);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.resultTextBox);
@@ -119,5 +131,6 @@
         private System.Windows.Forms.Label resultLabel;
         private System.Windows.Forms.GroupBox plotsGroupBox;
         private System.Windows.Forms.Panel plotsPanel;
+        private System.Windows.Forms.Button backButton;
     }
 }

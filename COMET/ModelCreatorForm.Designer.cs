@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelCreatorForm));
             this.label1 = new System.Windows.Forms.Label();
             this.creatorPanel = new System.Windows.Forms.Panel();
-            this.firstCriterionControl = new COMET.CriterionControl();
             this.creatorNextButton = new System.Windows.Forms.Button();
             this.valLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
@@ -46,6 +45,7 @@
             this.judgmentResultsContent = new System.Windows.Forms.Label();
             this.resultsHeaderLabel = new System.Windows.Forms.Label();
             this.backToMenuButton = new System.Windows.Forms.Button();
+            this.firstCriterionControl = new COMET.CriterionControl();
             this.creatorPanel.SuspendLayout();
             this.judgmentPanel.SuspendLayout();
             this.judgmentResultsPanel.SuspendLayout();
@@ -74,13 +74,6 @@
             this.creatorPanel.Name = "creatorPanel";
             this.creatorPanel.Size = new System.Drawing.Size(760, 537);
             this.creatorPanel.TabIndex = 0;
-            // 
-            // firstCriterionControl
-            // 
-            this.firstCriterionControl.Location = new System.Drawing.Point(25, 99);
-            this.firstCriterionControl.Name = "firstCriterionControl";
-            this.firstCriterionControl.Size = new System.Drawing.Size(421, 26);
-            this.firstCriterionControl.TabIndex = 8;
             // 
             // creatorNextButton
             // 
@@ -224,6 +217,13 @@
             this.backToMenuButton.Text = "< Back to menu";
             this.backToMenuButton.UseVisualStyleBackColor = true;
             this.backToMenuButton.Click += new System.EventHandler(this.backToMenuButton_Click);
+            // 
+            // firstCriterionControl
+            // 
+            this.firstCriterionControl.Location = new System.Drawing.Point(25, 99);
+            this.firstCriterionControl.Name = "firstCriterionControl";
+            this.firstCriterionControl.Size = new System.Drawing.Size(421, 26);
+            this.firstCriterionControl.TabIndex = 8;
             // 
             // ModelCreatorForm
             // 

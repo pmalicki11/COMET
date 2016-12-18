@@ -35,7 +35,7 @@ namespace COMET
             msFunctions = genetareMembershipFunctions(criteria);
             generateControls();
         }
-
+        
         private void generateControls()
         {
             genPlots();
@@ -103,7 +103,7 @@ namespace COMET
                 }
                 else
                 {
-                    variableControl.Location = new Point(12, 400);
+                    variableControl.Location = new Point(12, 430);
                 }
                 Controls.Add(variableControl);
                 inputVariables.Add(variableControl);
@@ -284,6 +284,14 @@ namespace COMET
                 }
             }
             return false;
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            StartForm form = new StartForm();
+            form.ShowDialog();
+            this.Close();
         }
 
         #region Old functions

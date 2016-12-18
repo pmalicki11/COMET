@@ -35,9 +35,9 @@ namespace COMET
         public void addIntersections(Double x, Double y)
         {
             Series series = new Series();
-            series.Color = Color.Black;
+            series.Color = Color.DarkGray;
             series.ChartType = SeriesChartType.Line;
-            series.BorderDashStyle = ChartDashStyle.Dash;
+            series.BorderDashStyle = ChartDashStyle.Solid;
             series.BorderWidth = 1;
             series.Points.AddXY(chart.ChartAreas[0].AxisX.Minimum, y);
             series.Points.AddXY(x, y);

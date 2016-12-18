@@ -230,7 +230,10 @@ namespace COMET
 
         private void inferenceButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Working on it");
+            this.Hide();
+            InferenceForm form = new InferenceForm(characteristicObjectsList);
+            form.ShowDialog();
+            this.Close();
         }
     }
 }
