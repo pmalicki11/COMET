@@ -11,7 +11,6 @@ namespace COMET
 {
     public class ExcelFileManager
     {
-        private int dataType;
         public List<CharacteristicObject> objectList;
         public Pair[] pairs;
         public int pairsLeft;

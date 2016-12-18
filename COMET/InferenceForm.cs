@@ -78,11 +78,12 @@ namespace COMET
             for (int i = 0; i < criteria.Count; i++)
             {
                 Plot plot = new Plot(variableNames[i]);
-                plot.Location = new Point(i * 310 + 10, 10);
+                plot.Location = new Point(i * 410 + 10, 10);
                 for (int j = 0; j < criteria[variableNames[i]].Count; j++)
                 {
                     Series series = new Series();
                     setPointsToSeries(getPointsForSeries(variableNames[i], criteria[variableNames[i]][j]), ref series);
+                    series.Name = criteria[variableNames[i]][j].ToString();
                     plot.addSeries(series);
                 }
                 plots.Add(variableNames[i], plot);
@@ -166,8 +167,6 @@ namespace COMET
                 return;
             }
 
-            Dictionary<CharacteristicObject, Double> activationValues = new Dictionary<CharacteristicObject, Double>();
-
             List<Double> endMfValue = new List<Double>();
             for (int i = 0; i < objectList.Count; i++)
             {
@@ -189,11 +188,10 @@ namespace COMET
                     }
 
                     Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
-
-                    plots[criterionName].addIntersections(inputX, currentValue);
-                    
-
                     criterionMfValue = criterionMfValue * currentValue;
+                    
+                        plots[criterionName].addIntersections(criterionValue, inputX, currentValue);
+                    
                 }
                 endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
             }

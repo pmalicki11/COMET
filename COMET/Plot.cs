@@ -13,7 +13,7 @@ namespace COMET
 {
     public partial class Plot : UserControl
     {
-        private List<Series> intersections;
+        
         public Plot()
         {
             InitializeComponent();
@@ -32,17 +32,35 @@ namespace COMET
             this.chart.Series.Add(series);
         }
 
-        public void addIntersections(Double x, Double y)
+        public void addIntersections(Double criterionValue, Double x, Double y)
         {
-            Series series = new Series();
+            String name = criterionValue.ToString() + " -> " + y.ToString();
+            Series series = new Series(name);
             series.Color = Color.DarkGray;
             series.ChartType = SeriesChartType.Line;
-            series.BorderDashStyle = ChartDashStyle.Solid;
+            series.BorderDashStyle = ChartDashStyle.Dash;
             series.BorderWidth = 1;
             series.Points.AddXY(chart.ChartAreas[0].AxisX.Minimum, y);
             series.Points.AddXY(x, y);
             series.Points.AddXY(x, chart.ChartAreas[0].AxisY.Minimum);
-            this.chart.Series.Add(series);
+            series.Legend = null;
+            if (!intersectionExists(series))
+            {
+                this.chart.Series.Add(series);
+
+            }
+        }
+
+        private bool intersectionExists(Series seriesNew)
+        {
+            foreach (Series series in this.chart.Series)
+            {
+                if (seriesEqual(series, seriesNew))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void removeIntersections()
@@ -63,6 +81,18 @@ namespace COMET
                 }
             }
         return -1;
+        }
+
+        private bool seriesEqual(Series s1, Series s2)
+        {
+            for (int i = 0; i < s1.Points.Count; i++)
+            {
+                if (s1.Points[i].XValue != s2.Points[i].XValue || s1.Points[i].YValues[0] != s2.Points[i].YValues[0])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
