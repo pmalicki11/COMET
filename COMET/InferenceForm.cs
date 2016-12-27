@@ -26,6 +26,8 @@ namespace COMET
         Dictionary<String, List<Double>> criteria;
         Dictionary<String, List<TriangularMembershipFunction>> msFunctions;
         Dictionary<String, Plot> plots;
+        Int16 alternativesNumber = 0;
+        List<AlternativeControl> alternativeControls;
 
         public InferenceForm(List<CharacteristicObject> list)
         {
@@ -35,7 +37,15 @@ namespace COMET
             msFunctions = genetareMembershipFunctions(criteria);
             generateControls();
         }
-        
+
+        public Int16 AlternativesNumber
+        {
+            set
+            {
+                alternativesNumber = value;
+            }
+        }
+
         private void generateControls()
         {
             genPlots();
@@ -104,9 +114,9 @@ namespace COMET
                 }
                 else
                 {
-                    variableControl.Location = new Point(12, 430);
+                    variableControl.Location = new Point(12, 12);
                 }
-                Controls.Add(variableControl);
+                standardInferencePanel.Controls.Add(variableControl);
                 inputVariables.Add(variableControl);
             }
         }
@@ -290,6 +300,68 @@ namespace COMET
             StartForm form = new StartForm();
             form.ShowDialog();
             this.Close();
+        }
+
+        private void multipleInference_Enter(object sender, EventArgs e)
+        {
+            if (alternativeControls != null && multipleInferencePanel.Controls.Count > 0)
+            {
+                alternativeControls.Clear();
+                multipleInferencePanel.Controls.Clear();
+            }
+
+            Form numOfAlternatives = new InferenceAlternatives(this);
+            numOfAlternatives.ShowDialog();
+
+            if (alternativesNumber > 0)
+            {
+                genBoxesForAlternatives();
+            }
+            else
+            {
+                MessageBox.Show("Error!");
+            }
+        }
+
+        private void genBoxesForAlternatives()
+        {
+            for (int i = 0; i <= objectList[0].names.Length; i++)
+            {
+                Label label = new Label();
+                if (i == 0)
+                {
+                    label.Text = "ID";
+                    label.Location = new Point(12, 4);
+                }
+                else if (i == 1)
+                {
+                    label.Text = objectList[0].names[i - 1];
+                    label.Location = new Point(30, 4);
+                }
+                else
+                {
+                    label.Text = objectList[0].names[i - 1];
+                    label.Location = new Point(i * 80, 4);
+                }
+                multipleInferencePanel.Controls.Add(label);
+            }
+
+            alternativeControls = new List<AlternativeControl>();
+            for (int i = 0; i < alternativesNumber; i++)
+            {
+                AlternativeControl altControl = new AlternativeControl(criteria.Count(), i + 1);
+                if (i == 0)
+                {
+                    altControl.Location = new Point(12, 30);
+                }
+                else
+                {
+                    altControl.Location = new Point(12, alternativeControls[i - 1].Location.Y + 30);
+                }
+
+                alternativeControls.Add(altControl);
+                multipleInferencePanel.Controls.Add(altControl);
+            }
         }
 
         #region Old functions

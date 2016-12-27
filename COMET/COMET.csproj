@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlternativeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlternativeControl.Designer.cs">
+      <DependentUpon>AlternativeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CharacteristicObject.cs" />
     <Compile Include="FuzzyVariableControl.cs">
       <SubType>UserControl</SubType>
@@ -75,6 +81,15 @@
     <Compile Include="FuzzyVariableControl.Designer.cs">
       <DependentUpon>FuzzyVariableControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="InferenceAlternatives.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InferenceAlternatives.Designer.cs">
+      <DependentUpon>InferenceAlternatives.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Testy\CharacteristicObject.cs" />
+    <Compile Include="Testy\Criterion.cs" />
+    <Compile Include="Testy\IFuzzyNumber.cs" />
     <Compile Include="InferenceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,9 +130,17 @@
     <Compile Include="StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Testy\Judge.cs" />
+    <Compile Include="Testy\TriangularFuzzyNumber.cs" />
     <Compile Include="TriangularMembershipFunction.cs" />
+    <EmbeddedResource Include="AlternativeControl.resx">
+      <DependentUpon>AlternativeControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FuzzyVariableControl.resx">
       <DependentUpon>FuzzyVariableControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InferenceAlternatives.resx">
+      <DependentUpon>InferenceAlternatives.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InferenceForm.resx">
       <DependentUpon>InferenceForm.cs</DependentUpon>

@@ -35,12 +35,21 @@
             this.plotsGroupBox = new System.Windows.Forms.GroupBox();
             this.plotsPanel = new System.Windows.Forms.Panel();
             this.backButton = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.standartInference = new System.Windows.Forms.TabPage();
+            this.standardInferencePanel = new System.Windows.Forms.Panel();
+            this.multipleInference = new System.Windows.Forms.TabPage();
+            this.multipleInferencePanel = new System.Windows.Forms.Panel();
             this.plotsGroupBox.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.standartInference.SuspendLayout();
+            this.standardInferencePanel.SuspendLayout();
+            this.multipleInference.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkButton
             // 
-            this.checkButton.Location = new System.Drawing.Point(852, 387);
+            this.checkButton.Location = new System.Drawing.Point(829, 6);
             this.checkButton.Name = "checkButton";
             this.checkButton.Size = new System.Drawing.Size(100, 23);
             this.checkButton.TabIndex = 0;
@@ -60,7 +69,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(900, 416);
+            this.resultTextBox.Location = new System.Drawing.Point(877, 35);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -68,7 +77,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(849, 419);
+            this.resultLabel.Location = new System.Drawing.Point(826, 38);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
@@ -93,7 +102,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(18, 387);
+            this.backButton.Location = new System.Drawing.Point(12, 603);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(100, 23);
             this.backButton.TabIndex = 1;
@@ -101,23 +110,78 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.standartInference);
+            this.tabControl.Controls.Add(this.multipleInference);
+            this.tabControl.Location = new System.Drawing.Point(12, 387);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(943, 210);
+            this.tabControl.TabIndex = 5;
+            // 
+            // standartInference
+            // 
+            this.standartInference.Controls.Add(this.standardInferencePanel);
+            this.standartInference.Location = new System.Drawing.Point(4, 22);
+            this.standartInference.Name = "standartInference";
+            this.standartInference.Padding = new System.Windows.Forms.Padding(3);
+            this.standartInference.Size = new System.Drawing.Size(935, 184);
+            this.standartInference.TabIndex = 0;
+            this.standartInference.Text = "Standard inference";
+            this.standartInference.UseVisualStyleBackColor = true;
+            // 
+            // standardInferencePanel
+            // 
+            this.standardInferencePanel.AutoScroll = true;
+            this.standardInferencePanel.Controls.Add(this.checkButton);
+            this.standardInferencePanel.Controls.Add(this.resultLabel);
+            this.standardInferencePanel.Controls.Add(this.resultTextBox);
+            this.standardInferencePanel.Location = new System.Drawing.Point(0, 0);
+            this.standardInferencePanel.Name = "standardInferencePanel";
+            this.standardInferencePanel.Size = new System.Drawing.Size(935, 184);
+            this.standardInferencePanel.TabIndex = 4;
+            // 
+            // multipleInference
+            // 
+            this.multipleInference.Controls.Add(this.multipleInferencePanel);
+            this.multipleInference.Location = new System.Drawing.Point(4, 22);
+            this.multipleInference.Name = "multipleInference";
+            this.multipleInference.Padding = new System.Windows.Forms.Padding(3);
+            this.multipleInference.Size = new System.Drawing.Size(935, 184);
+            this.multipleInference.TabIndex = 1;
+            this.multipleInference.Text = "Multiple inference";
+            this.multipleInference.UseVisualStyleBackColor = true;
+            this.multipleInference.Enter += new System.EventHandler(this.multipleInference_Enter);
+            // 
+            // multipleInferencePanel
+            // 
+            this.multipleInferencePanel.AutoScroll = true;
+            this.multipleInferencePanel.Location = new System.Drawing.Point(0, 0);
+            this.multipleInferencePanel.Name = "multipleInferencePanel";
+            this.multipleInferencePanel.Size = new System.Drawing.Size(936, 184);
+            this.multipleInferencePanel.TabIndex = 0;
+            // 
             // InferenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 638);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.plotsGroupBox);
-            this.Controls.Add(this.resultLabel);
-            this.Controls.Add(this.resultTextBox);
             this.Controls.Add(this.header);
-            this.Controls.Add(this.checkButton);
             this.MaximumSize = new System.Drawing.Size(983, 677);
             this.MinimumSize = new System.Drawing.Size(983, 677);
             this.Name = "InferenceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InferenceForm";
             this.plotsGroupBox.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
+            this.standartInference.ResumeLayout(false);
+            this.standardInferencePanel.ResumeLayout(false);
+            this.standardInferencePanel.PerformLayout();
+            this.multipleInference.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,5 +196,10 @@
         private System.Windows.Forms.GroupBox plotsGroupBox;
         private System.Windows.Forms.Panel plotsPanel;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage standartInference;
+        private System.Windows.Forms.TabPage multipleInference;
+        private System.Windows.Forms.Panel standardInferencePanel;
+        private System.Windows.Forms.Panel multipleInferencePanel;
     }
 }
