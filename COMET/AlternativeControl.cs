@@ -19,7 +19,9 @@ namespace COMET
             InitializeComponent();
             generateControls(numOfCriteria);
             this.label1.Text = index.ToString() + ":";
-            this.Size = this.Size = new System.Drawing.Size(this.Controls[numOfCriteria - 1].Location.X + 150, 20);
+            this.Size = this.Size = new System.Drawing.Size(this.Controls[numOfCriteria - 1].Location.X + 300, 20);
+            this.label2.Text = "Result: ";
+            this.label2.Location = new Point(this.Size.Width - 75, 4);
         }
 
         private void generateControls(int numOfCriteria)
@@ -48,13 +50,21 @@ namespace COMET
             Double val = 0.0;
             try
             {
-                val = Convert.ToDouble(criteria[index].Text);
+                val = Convert.ToDouble(criteria[index].Text.Replace(".", ","));
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
             return val;
+        }
+
+        public Double Result
+        {
+            set
+            {
+                this.label2.Text = "Result: " + value.ToString();
+            }
         }
     }
 }

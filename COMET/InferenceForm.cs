@@ -148,7 +148,7 @@ namespace COMET
             }
         }
 
-        private void checkButton_Click(object sender, EventArgs e)
+        private void checkSingleButton_Click(object sender, EventArgs e)
         {
             #region using of old functions
             /*generateFuzzySystem();
@@ -167,16 +167,58 @@ namespace COMET
 
             resultTextBox.Text = result[outputResult].ToString("f4");*/
             #endregion
+            #region old method
+            //resultTextBox.Text = "";
+            //removeIntersectionsFromPlots();
 
-            resultTextBox.Text = "";
-            removeIntersectionsFromPlots();
+            //if (isEmptyField())
+            //{
+            //    MessageBox.Show("Any field can't be empty");
+            //    return;
+            //}
 
-            if (isEmptyField())
+            //List<Double> endMfValue = new List<Double>();
+            //for (int i = 0; i < objectList.Count; i++)
+            //{
+            //    Double criterionMfValue = 1.0;
+            //    for (int j = 0; j < objectList[0].Size(); j++)
+            //    {
+            //        String criterionName = objectList[i].names[j];
+            //        Double criterionValue = Convert.ToDouble(objectList[i].values[j]);
+            //        Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable);
+            //        int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
+
+            //        Double criterionMin = criteria[criterionName].Min();
+            //        Double criterionMax = criteria[criterionName].Max();
+
+            //        if (inputX < criterionMin || inputX > criterionMax)
+            //        {
+            //            MessageBox.Show("Input value for " + criterionName + "(" + inputX + ") is out of domain (" + criterionMin + " - " + criterionMax + ")");
+            //            return;
+            //        }
+
+            //        Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
+            //        criterionMfValue = criterionMfValue * currentValue;
+                    
+            //            plots[criterionName].addIntersections(criterionValue, inputX, currentValue);
+                    
+            //    }
+            //    endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
+            //}
+            //resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
+            # endregion
+            if (isEmptySingleMethodFields())
             {
                 MessageBox.Show("Any field can't be empty");
                 return;
             }
+            resultTextBox.Text = "";
+            removeIntersectionsFromPlots();
+            resultTextBox.Text = inference(inputVariables, true);
+        }
 
+        private String inference(List<FuzzyVariableControl> inputVar, bool single)
+        {
             List<Double> endMfValue = new List<Double>();
             for (int i = 0; i < objectList.Count; i++)
             {
@@ -185,7 +227,7 @@ namespace COMET
                 {
                     String criterionName = objectList[i].names[j];
                     Double criterionValue = Convert.ToDouble(objectList[i].values[j]);
-                    Double inputX = Convert.ToDouble(inputVariables[j].ValueOfVariable);
+                    Double inputX = Convert.ToDouble(inputVar[j].ValueOfVariable);
                     int indexOfCriterion = criteria[criterionName].IndexOf(criterionValue);
 
                     Double criterionMin = criteria[criterionName].Min();
@@ -194,20 +236,20 @@ namespace COMET
                     if (inputX < criterionMin || inputX > criterionMax)
                     {
                         MessageBox.Show("Input value for " + criterionName + "(" + inputX + ") is out of domain (" + criterionMin + " - " + criterionMax + ")");
-                        return;
+                        return null;
                     }
 
                     Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
                     criterionMfValue = criterionMfValue * currentValue;
-                    
+
+                    if (single)
+                    {
                         plots[criterionName].addIntersections(criterionValue, inputX, currentValue);
-                    
+                    }
                 }
                 endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
             }
-            resultTextBox.Text = Math.Round(endMfValue.Sum(), 4).ToString();
-
-
+            return Math.Round(endMfValue.Sum(), 4).ToString();
         }
 
         private void removeIntersectionsFromPlots()
@@ -282,7 +324,7 @@ namespace COMET
             return criteria;
         }
 
-        private Boolean isEmptyField()
+        private Boolean isEmptySingleMethodFields()
         {
             for (int i = 0; i < inputVariables.Count; i++)
             {
@@ -291,6 +333,12 @@ namespace COMET
                     return true;
                 }
             }
+            return false;
+        }
+
+        private Boolean isEmptyMultipleMethodFields()
+        {
+           
             return false;
         }
 
@@ -325,26 +373,7 @@ namespace COMET
 
         private void genBoxesForAlternatives()
         {
-            for (int i = 0; i <= objectList[0].names.Length; i++)
-            {
-                Label label = new Label();
-                if (i == 0)
-                {
-                    label.Text = "ID";
-                    label.Location = new Point(12, 4);
-                }
-                else if (i == 1)
-                {
-                    label.Text = objectList[0].names[i - 1];
-                    label.Location = new Point(30, 4);
-                }
-                else
-                {
-                    label.Text = objectList[0].names[i - 1];
-                    label.Location = new Point(i * 80, 4);
-                }
-                multipleInferencePanel.Controls.Add(label);
-            }
+            genHeaders();
 
             alternativeControls = new List<AlternativeControl>();
             for (int i = 0; i < alternativesNumber; i++)
@@ -362,6 +391,55 @@ namespace COMET
                 alternativeControls.Add(altControl);
                 multipleInferencePanel.Controls.Add(altControl);
             }
+        }
+
+        private void genHeaders()
+        {
+            for (int i = 0; i <= objectList[0].names.Length; i++)
+            {
+                
+                Label label = new Label();
+                if (i == 0)
+                {
+                    label.Text = "ID";
+                    label.Location = new Point(12, 4);
+                }
+                else if (i == 1)
+                {
+                    label.Text = objectList[0].names[i - 1];
+                    label.Location = new Point(63, 4);
+                }
+                else
+                {
+                    label.Text = objectList[0].names[i - 1];
+                    label.Location = new Point(63 + (i - 1) * 80, 4);
+                }
+                label.AutoSize = true;
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                multipleInferencePanel.Controls.Add(label);
+            }
+        }
+
+        private void checkMultipleButton_Click(object sender, EventArgs e)
+        {
+            removeIntersectionsFromPlots();
+            for (int i = 0; i < alternativeControls.Count; i++)
+            {
+                alternativeControls[i].Result = Convert.ToDouble(inference(convertToFuzzyVariablesList(alternativeControls.ElementAt(i)), false));
+            }
+                
+        }
+
+        private List<FuzzyVariableControl> convertToFuzzyVariablesList(AlternativeControl alternativeControl)
+        {
+            List<FuzzyVariableControl> fuzzyVariables = new List<FuzzyVariableControl>();
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                FuzzyVariableControl fVar = new FuzzyVariableControl(criteria.Keys.ElementAt(i));
+                fVar.ValueOfVariable = alternativeControl.getCriterionValue(i).ToString();
+                fuzzyVariables.Add(fVar);
+            }
+            return fuzzyVariables;
         }
 
         #region Old functions

@@ -32,6 +32,11 @@ namespace COMET
             {
                 return varValue.Text.Replace(".", ",");
             }
+            set
+            {
+                this.varValue.Text = value;
+                this.varValue.Text.Replace(".", ",");
+            }
         }
     }
 }

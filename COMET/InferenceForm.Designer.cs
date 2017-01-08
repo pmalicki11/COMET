@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkButton = new System.Windows.Forms.Button();
+            this.checkSingleButton = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.Label();
             this.resultTextBox = new System.Windows.Forms.TextBox();
             this.resultLabel = new System.Windows.Forms.Label();
@@ -40,22 +40,24 @@
             this.standardInferencePanel = new System.Windows.Forms.Panel();
             this.multipleInference = new System.Windows.Forms.TabPage();
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
+            this.checkMultipleButton = new System.Windows.Forms.Button();
             this.plotsGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.standartInference.SuspendLayout();
             this.standardInferencePanel.SuspendLayout();
             this.multipleInference.SuspendLayout();
+            this.multipleInferencePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // checkButton
+            // checkSingleButton
             // 
-            this.checkButton.Location = new System.Drawing.Point(829, 6);
-            this.checkButton.Name = "checkButton";
-            this.checkButton.Size = new System.Drawing.Size(100, 23);
-            this.checkButton.TabIndex = 0;
-            this.checkButton.Text = "Check";
-            this.checkButton.UseVisualStyleBackColor = true;
-            this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
+            this.checkSingleButton.Location = new System.Drawing.Point(829, 6);
+            this.checkSingleButton.Name = "checkSingleButton";
+            this.checkSingleButton.Size = new System.Drawing.Size(100, 23);
+            this.checkSingleButton.TabIndex = 0;
+            this.checkSingleButton.Text = "Check";
+            this.checkSingleButton.UseVisualStyleBackColor = true;
+            this.checkSingleButton.Click += new System.EventHandler(this.checkSingleButton_Click);
             // 
             // header
             // 
@@ -134,7 +136,7 @@
             // standardInferencePanel
             // 
             this.standardInferencePanel.AutoScroll = true;
-            this.standardInferencePanel.Controls.Add(this.checkButton);
+            this.standardInferencePanel.Controls.Add(this.checkSingleButton);
             this.standardInferencePanel.Controls.Add(this.resultLabel);
             this.standardInferencePanel.Controls.Add(this.resultTextBox);
             this.standardInferencePanel.Location = new System.Drawing.Point(0, 0);
@@ -157,10 +159,21 @@
             // multipleInferencePanel
             // 
             this.multipleInferencePanel.AutoScroll = true;
+            this.multipleInferencePanel.Controls.Add(this.checkMultipleButton);
             this.multipleInferencePanel.Location = new System.Drawing.Point(0, 0);
             this.multipleInferencePanel.Name = "multipleInferencePanel";
             this.multipleInferencePanel.Size = new System.Drawing.Size(936, 184);
             this.multipleInferencePanel.TabIndex = 0;
+            // 
+            // checkMultipleButton
+            // 
+            this.checkMultipleButton.Location = new System.Drawing.Point(829, 6);
+            this.checkMultipleButton.Name = "checkMultipleButton";
+            this.checkMultipleButton.Size = new System.Drawing.Size(100, 23);
+            this.checkMultipleButton.TabIndex = 1;
+            this.checkMultipleButton.Text = "Check";
+            this.checkMultipleButton.UseVisualStyleBackColor = true;
+            this.checkMultipleButton.Click += new System.EventHandler(this.checkMultipleButton_Click);
             // 
             // InferenceForm
             // 
@@ -182,6 +195,7 @@
             this.standardInferencePanel.ResumeLayout(false);
             this.standardInferencePanel.PerformLayout();
             this.multipleInference.ResumeLayout(false);
+            this.multipleInferencePanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,7 +203,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button checkButton;
+        private System.Windows.Forms.Button checkSingleButton;
         private System.Windows.Forms.Label header;
         private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.Label resultLabel;
@@ -201,5 +215,6 @@
         private System.Windows.Forms.TabPage multipleInference;
         private System.Windows.Forms.Panel standardInferencePanel;
         private System.Windows.Forms.Panel multipleInferencePanel;
+        private System.Windows.Forms.Button checkMultipleButton;
     }
 }
