@@ -17,7 +17,7 @@ namespace COMET
         public double[,] mej;
         private Stream stream;
         private Workbook workbook;
-        
+
         public ExcelFileManager(pairJudgment pj)
         {
             this.objectList = new List<CharacteristicObject>(pj.ListOfObjects);
@@ -29,6 +29,25 @@ namespace COMET
         public ExcelFileManager(Stream stream)
         {
             this.stream = stream;
+        }
+
+        public static void saveAlternativesResultsToFile(String[,] input, String filename)
+        {
+            Workbook workbook = new Workbook();
+            Worksheet altResults = new Worksheet("Alternatives results");
+            
+            prepareSheet(ref altResults);
+            
+
+            for (int i = 0; i < input.GetLength(0); i++)
+            {
+                for (int j = 0; j < input.GetLength(1); j++)
+                {
+                    altResults.Cells[i, j] = new Cell(input[i, j]);
+                }
+            }
+            workbook.Worksheets.Add(altResults);
+            workbook.Save(filename);
         }
 
         public void saveToFile(String filename)
@@ -160,7 +179,7 @@ namespace COMET
             }
         }
 
-        private void prepareSheet(ref Worksheet ws)
+        private static void prepareSheet(ref Worksheet ws)
         {
             //method to create some blank cells to prevent file opening error
             //if file is too small (probably less than 7kB) Excel treats it as corrupted

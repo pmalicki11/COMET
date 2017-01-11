@@ -40,6 +40,7 @@
             this.standardInferencePanel = new System.Windows.Forms.Panel();
             this.multipleInference = new System.Windows.Forms.TabPage();
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
+            this.saveMultipleResultsButton = new System.Windows.Forms.Button();
             this.checkMultipleButton = new System.Windows.Forms.Button();
             this.plotsGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -51,7 +52,7 @@
             // 
             // checkSingleButton
             // 
-            this.checkSingleButton.Location = new System.Drawing.Point(829, 6);
+            this.checkSingleButton.Location = new System.Drawing.Point(815, 6);
             this.checkSingleButton.Name = "checkSingleButton";
             this.checkSingleButton.Size = new System.Drawing.Size(100, 23);
             this.checkSingleButton.TabIndex = 0;
@@ -71,7 +72,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(877, 35);
+            this.resultTextBox.Location = new System.Drawing.Point(863, 35);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -79,7 +80,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(826, 38);
+            this.resultLabel.Location = new System.Drawing.Point(812, 38);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
@@ -159,15 +160,28 @@
             // multipleInferencePanel
             // 
             this.multipleInferencePanel.AutoScroll = true;
+            this.multipleInferencePanel.Controls.Add(this.saveMultipleResultsButton);
             this.multipleInferencePanel.Controls.Add(this.checkMultipleButton);
             this.multipleInferencePanel.Location = new System.Drawing.Point(0, 0);
             this.multipleInferencePanel.Name = "multipleInferencePanel";
             this.multipleInferencePanel.Size = new System.Drawing.Size(936, 184);
             this.multipleInferencePanel.TabIndex = 0;
             // 
+            // saveMultipleResultsButton
+            // 
+            this.saveMultipleResultsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveMultipleResultsButton.Location = new System.Drawing.Point(815, 35);
+            this.saveMultipleResultsButton.Name = "saveMultipleResultsButton";
+            this.saveMultipleResultsButton.Size = new System.Drawing.Size(100, 23);
+            this.saveMultipleResultsButton.TabIndex = 2;
+            this.saveMultipleResultsButton.Text = "Save to file";
+            this.saveMultipleResultsButton.UseVisualStyleBackColor = true;
+            this.saveMultipleResultsButton.Click += new System.EventHandler(this.saveMultipleResultsButton_Click);
+            // 
             // checkMultipleButton
             // 
-            this.checkMultipleButton.Location = new System.Drawing.Point(829, 6);
+            this.checkMultipleButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkMultipleButton.Location = new System.Drawing.Point(815, 6);
             this.checkMultipleButton.Name = "checkMultipleButton";
             this.checkMultipleButton.Size = new System.Drawing.Size(100, 23);
             this.checkMultipleButton.TabIndex = 1;
@@ -216,5 +230,6 @@
         private System.Windows.Forms.Panel standardInferencePanel;
         private System.Windows.Forms.Panel multipleInferencePanel;
         private System.Windows.Forms.Button checkMultipleButton;
+        private System.Windows.Forms.Button saveMultipleResultsButton;
     }
 }

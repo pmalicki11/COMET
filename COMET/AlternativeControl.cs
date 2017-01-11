@@ -13,11 +13,13 @@ namespace COMET
     public partial class AlternativeControl : UserControl
     {
         private List<TextBox> criteria;
+        private int count;
 
         public AlternativeControl(int numOfCriteria, int index)
         {
             InitializeComponent();
             generateControls(numOfCriteria);
+            this.count = numOfCriteria;
             this.label1.Text = index.ToString() + ":";
             this.Size = this.Size = new System.Drawing.Size(this.Controls[numOfCriteria - 1].Location.X + 300, 20);
             this.label2.Text = "Result: ";
@@ -59,11 +61,33 @@ namespace COMET
             return val;
         }
 
-        public Double Result
+        public String Result
         {
             set
             {
                 this.label2.Text = "Result: " + value.ToString();
+            }
+
+            get
+            {
+                return label2.Text.Remove(0, 8);
+            }
+        }
+
+        public Boolean isEmpty(int index)
+        {
+            if (criteria[index].Text == "")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return count;
             }
         }
     }

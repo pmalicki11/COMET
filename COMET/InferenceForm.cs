@@ -28,6 +28,7 @@ namespace COMET
         Dictionary<String, Plot> plots;
         Int16 alternativesNumber = 0;
         List<AlternativeControl> alternativeControls;
+        SaveFileDialog saveFileDialog;
 
         public InferenceForm(List<CharacteristicObject> list)
         {
@@ -338,8 +339,31 @@ namespace COMET
 
         private Boolean isEmptyMultipleMethodFields()
         {
-           
+            for (int i = 0; i < alternativeControls.Count; i++)
+            {
+                for (int j = 0; j < alternativeControls[i].Count; j++)
+                {
+                    if (alternativeControls[i].isEmpty(j))
+                    {
+                        MessageBox.Show("Any field can't be empty");
+                        return true;
+                    }
+                }
+            }
             return false;
+        }
+
+        private Boolean resultsCalculated()
+        {
+            for (int i = 0; i < alternativeControls.Count; i++)
+            { 
+                if (alternativeControls[i].Result == "")
+                {
+                    MessageBox.Show("Results not calculated!");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -363,7 +387,10 @@ namespace COMET
 
             if (alternativesNumber > 0)
             {
+                checkMultipleButton.Refresh();
                 genBoxesForAlternatives();
+                checkMultipleButton.Parent = multipleInferencePanel;
+                saveMultipleResultsButton.Parent = multipleInferencePanel;
             }
             else
             {
@@ -422,12 +449,16 @@ namespace COMET
 
         private void checkMultipleButton_Click(object sender, EventArgs e)
         {
+            if (isEmptyMultipleMethodFields())
+            {
+                return;
+            }
+
             removeIntersectionsFromPlots();
             for (int i = 0; i < alternativeControls.Count; i++)
             {
-                alternativeControls[i].Result = Convert.ToDouble(inference(convertToFuzzyVariablesList(alternativeControls.ElementAt(i)), false));
+                alternativeControls[i].Result = inference(convertToFuzzyVariablesList(alternativeControls.ElementAt(i)), false);
             }
-                
         }
 
         private List<FuzzyVariableControl> convertToFuzzyVariablesList(AlternativeControl alternativeControl)
@@ -440,6 +471,50 @@ namespace COMET
                 fuzzyVariables.Add(fVar);
             }
             return fuzzyVariables;
+        }
+
+        private void saveMultipleResultsButton_Click(object sender, EventArgs e)
+        {
+            if (isEmptyMultipleMethodFields() | !resultsCalculated())
+            {
+                return;
+            }
+            saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xls)|*.xls";
+            //saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xls)|*.xls|XML File (*.xml)|*.xml";
+            saveFileDialog.FileOk += saveFileDialog_FileOk;
+            saveFileDialog.ShowDialog();
+        }
+
+        private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            String[,] input = new String[alternativeControls.Count + 1, criteria.Count + 2];
+            
+            input[0, 0] = "Id";
+            for (int i = 0 ; i < criteria.Count; i++)
+            {
+                input[0, i + 1] = criteria.Keys.ElementAt(i);
+            }
+            input[0, criteria.Count + 1] = "Result";
+
+            for (int i = 0; i < alternativeControls.Count; i++)
+            {
+                input[i + 1, 0] = (i + 1).ToString();
+                for (int j = 0; j < criteria.Count; j++)
+                {
+                    input[i + 1, j + 1] = alternativeControls[i].getCriterionValue(j).ToString();
+                }
+                input[i + 1, criteria.Count + 1] = alternativeControls[i].Result.ToString();
+            }
+
+            try
+            {
+                ExcelFileManager.saveAlternativesResultsToFile(input, saveFileDialog.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString() + "\nProgram restart needed");
+            }
         }
 
         #region Old functions
