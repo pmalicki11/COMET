@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-//GNU Lesser GPL lisense library
-using ExcelLibrary.SpreadSheet;
+using ExcelLibrary.SpreadSheet; //GNU Lesser GPL lisense library
 
 namespace COMET
 {
@@ -17,6 +16,7 @@ namespace COMET
         public double[,] mej;
         private Stream stream;
         private Workbook workbook;
+        public Double[,] alternatives;
 
         public ExcelFileManager(pairJudgment pj)
         {
@@ -111,17 +111,11 @@ namespace COMET
             workbook.Save(filename);
         }
 
-        public bool loadFromFile()
+        public bool loadModelFromFile()
         {
             try
             {
                 this.workbook = Workbook.Load(this.stream);
-
-               /* if (workbook.Worksheets[1].Cells[0, 1].StringValue == "0")
-                {
-                    System.Windows.Forms.MessageBox.Show("File contains completed judgment");
-                    return false;
-                }*/
 
                 //load characteristic objects
                 this.objectList = new List<CharacteristicObject>();
@@ -177,6 +171,41 @@ namespace COMET
                 System.Windows.Forms.MessageBox.Show("Bad file format");
                 return false;
             }
+        }
+
+        public bool loadAlternativesFromFile()
+        {
+            try
+            {
+                this.workbook = Workbook.Load(this.stream);
+                int row = 0, column = 0;
+
+                while (!isEmptyCell(workbook.Worksheets[0].Cells[row,0]))
+                {
+                    row++;
+                }
+                while (!isEmptyCell(workbook.Worksheets[0].Cells[0, column]))
+                {
+                    column++;
+                }
+                alternatives = new Double[row - 1, column - 1];
+
+                for (int i = 0; i < row - 1; i++)
+                {
+                    for (int j = 0; j < column - 1; j++)
+                    {
+                        alternatives[i, j] = Convert.ToDouble(workbook.Worksheets[0].Cells[i + 1, j + 1].StringValue);
+                    }
+                }
+
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                return false;
+            }
+            
         }
 
         private static void prepareSheet(ref Worksheet ws)

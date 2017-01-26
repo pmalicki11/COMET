@@ -26,9 +26,11 @@ namespace COMET
         Dictionary<String, List<Double>> criteria;
         Dictionary<String, List<TriangularMembershipFunction>> msFunctions;
         Dictionary<String, Plot> plots;
-        Int16 alternativesNumber = 0;
+        int alternativesNumber = 0;
         List<AlternativeControl> alternativeControls;
         SaveFileDialog saveFileDialog;
+        Double[,] alternativesValues = null;
+        
 
         public InferenceForm(List<CharacteristicObject> list)
         {
@@ -39,7 +41,7 @@ namespace COMET
             generateControls();
         }
 
-        public Int16 AlternativesNumber
+        public int AlternativesNumber
         {
             set
             {
@@ -47,6 +49,13 @@ namespace COMET
             }
         }
 
+        public Double[,] AlternativesValues
+        {
+            set
+            {
+                this.alternativesValues = value;
+            }
+        }
         private void generateControls()
         {
             genPlots();
@@ -389,6 +398,10 @@ namespace COMET
             {
                 checkMultipleButton.Refresh();
                 genBoxesForAlternatives();
+                if (alternativesValues != null)
+                {
+                    fillAlternativesWithLoadedValues();
+                }
                 checkMultipleButton.Parent = multipleInferencePanel;
                 saveMultipleResultsButton.Parent = multipleInferencePanel;
             }
@@ -417,6 +430,17 @@ namespace COMET
 
                 alternativeControls.Add(altControl);
                 multipleInferencePanel.Controls.Add(altControl);
+            }
+        }
+
+        private void fillAlternativesWithLoadedValues()
+        {
+            for (int i = 0; i < alternativesValues.GetLength(0); i++)
+            {
+                for (int j = 0; j < alternativesValues.GetLength(1); j++)
+                {
+                    alternativeControls[i].setCriterionValue(j, alternativesValues[i, j]);
+                }
             }
         }
 

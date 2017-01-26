@@ -61,6 +61,11 @@ namespace COMET
             return val;
         }
 
+        public void setCriterionValue(int index, Double value)
+        {
+            criteria[index].Text = value.ToString();
+        }
+
         public String Result
         {
             set

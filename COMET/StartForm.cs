@@ -42,7 +42,7 @@ namespace COMET
                     if ((stream = openFileDialog.OpenFile()) != null)
                     {
                         ExcelFileManager loader = new ExcelFileManager(stream);
-                        if (loader.loadFromFile())
+                        if (loader.loadModelFromFile())
                         {
                             if (loader.pairsLeft > 0)
                             {
@@ -82,7 +82,7 @@ namespace COMET
                     if ((stream = openFileDialog.OpenFile()) != null)
                     {
                         ExcelFileManager loader = new ExcelFileManager(stream);
-                        if (loader.loadFromFile())
+                        if (loader.loadModelFromFile())
                         {
                             if (loader.pairsLeft == 0)
                             {
