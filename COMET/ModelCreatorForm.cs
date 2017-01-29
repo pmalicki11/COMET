@@ -210,11 +210,11 @@ namespace COMET
         {
             bool closeForm = true;
 
-            if (judgmentPanel.Visible)
-            { 
-                if (MessageBox.Show("Are  you sure?",
-                                    "Exit to main menu", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (!creatorPanel.Visible)
+            {
+                if (MessageBox.Show("Do you want save current results?", "Back to menu", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    saveButton_Click(this, new EventArgs());
                     closeForm = false;
                 }
             }
@@ -230,6 +230,11 @@ namespace COMET
 
         private void inferenceButton_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Do you want save current results?", "Back to menu", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                saveButton_Click(this, new EventArgs());
+            }
+
             this.Hide();
             InferenceForm form = new InferenceForm(characteristicObjectsList);
             form.ShowDialog();

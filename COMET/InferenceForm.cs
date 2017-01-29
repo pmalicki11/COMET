@@ -409,7 +409,7 @@ namespace COMET
             }
             else
             {
-                MessageBox.Show("Error!");
+                tabControl.SelectedTab = standartInference;
             }
         }
 

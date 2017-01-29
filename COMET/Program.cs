@@ -13,7 +13,14 @@ namespace COMET
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartForm());
+            try
+            {
+                Application.Run(new StartForm());
+            } 
+            catch(Exception ex)
+            {
+                MessageBox.Show("Program error!\n" + ex.ToString());
+            }
         }
     }
 }
