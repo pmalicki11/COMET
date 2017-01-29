@@ -29,7 +29,7 @@ namespace COMET
         int alternativesNumber = 0;
         List<AlternativeControl> alternativeControls;
         SaveFileDialog saveFileDialog;
-        Double[,] alternativesValues = null;
+        Double[,] alternativesValues;
         
 
         public InferenceForm(List<CharacteristicObject> list)
@@ -386,6 +386,7 @@ namespace COMET
 
         private void multipleInference_Enter(object sender, EventArgs e)
         {
+            alternativesValues = null;
             if (alternativeControls != null && multipleInferencePanel.Controls.Count > 0)
             {
                 alternativeControls.Clear();
@@ -436,12 +437,19 @@ namespace COMET
 
         private void fillAlternativesWithLoadedValues()
         {
-            for (int i = 0; i < alternativesValues.GetLength(0); i++)
+            try
             {
-                for (int j = 0; j < alternativesValues.GetLength(1); j++)
+                for (int i = 0; i < alternativesValues.GetLength(0); i++)
                 {
-                    alternativeControls[i].setCriterionValue(j, alternativesValues[i, j]);
+                    for (int j = 0; j < alternativesValues.GetLength(1); j++)
+                    {
+                        alternativeControls[i].setCriterionValue(j, alternativesValues[i, j]);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bad file format!");
             }
         }
 
