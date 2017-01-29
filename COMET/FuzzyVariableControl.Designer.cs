@@ -56,7 +56,7 @@
             this.Controls.Add(this.varValue);
             this.Controls.Add(this.criterionName);
             this.Name = "FuzzyVariableControl";
-            this.Size = new System.Drawing.Size(174, 26);
+            this.Size = new System.Drawing.Size(180, 26);
             this.ResumeLayout(false);
             this.PerformLayout();
 

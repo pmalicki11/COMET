@@ -38,6 +38,11 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.standartInference = new System.Windows.Forms.TabPage();
             this.standardInferencePanel = new System.Windows.Forms.Panel();
+            this.checkSensitivity = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.changeNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label = new System.Windows.Forms.Label();
             this.multipleInference = new System.Windows.Forms.TabPage();
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
             this.saveMultipleResultsButton = new System.Windows.Forms.Button();
@@ -46,13 +51,14 @@
             this.tabControl.SuspendLayout();
             this.standartInference.SuspendLayout();
             this.standardInferencePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.changeNumeric)).BeginInit();
             this.multipleInference.SuspendLayout();
             this.multipleInferencePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkSingleButton
             // 
-            this.checkSingleButton.Location = new System.Drawing.Point(815, 6);
+            this.checkSingleButton.Location = new System.Drawing.Point(401, 34);
             this.checkSingleButton.Name = "checkSingleButton";
             this.checkSingleButton.Size = new System.Drawing.Size(100, 23);
             this.checkSingleButton.TabIndex = 0;
@@ -72,7 +78,7 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(863, 35);
+            this.resultTextBox.Location = new System.Drawing.Point(425, 67);
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(52, 20);
             this.resultTextBox.TabIndex = 2;
@@ -80,7 +86,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(812, 38);
+            this.resultLabel.Location = new System.Drawing.Point(433, 11);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(37, 13);
             this.resultLabel.TabIndex = 3;
@@ -137,6 +143,11 @@
             // standardInferencePanel
             // 
             this.standardInferencePanel.AutoScroll = true;
+            this.standardInferencePanel.Controls.Add(this.checkSensitivity);
+            this.standardInferencePanel.Controls.Add(this.label2);
+            this.standardInferencePanel.Controls.Add(this.label1);
+            this.standardInferencePanel.Controls.Add(this.changeNumeric);
+            this.standardInferencePanel.Controls.Add(this.label);
             this.standardInferencePanel.Controls.Add(this.checkSingleButton);
             this.standardInferencePanel.Controls.Add(this.resultLabel);
             this.standardInferencePanel.Controls.Add(this.resultTextBox);
@@ -144,6 +155,60 @@
             this.standardInferencePanel.Name = "standardInferencePanel";
             this.standardInferencePanel.Size = new System.Drawing.Size(935, 184);
             this.standardInferencePanel.TabIndex = 4;
+            // 
+            // checkSensitivity
+            // 
+            this.checkSensitivity.Location = new System.Drawing.Point(718, 65);
+            this.checkSensitivity.Name = "checkSensitivity";
+            this.checkSensitivity.Size = new System.Drawing.Size(100, 23);
+            this.checkSensitivity.TabIndex = 8;
+            this.checkSensitivity.Text = "Check";
+            this.checkSensitivity.UseVisualStyleBackColor = true;
+            this.checkSensitivity.Click += new System.EventHandler(this.checkSensitivity_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(808, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(15, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "%";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(719, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Change";
+            // 
+            // changeNumeric
+            // 
+            this.changeNumeric.Location = new System.Drawing.Point(764, 37);
+            this.changeNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.changeNumeric.Name = "changeNumeric";
+            this.changeNumeric.Size = new System.Drawing.Size(43, 20);
+            this.changeNumeric.TabIndex = 5;
+            this.changeNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(741, 11);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(54, 13);
+            this.label.TabIndex = 4;
+            this.label.Text = "Sensitivity";
             // 
             // multipleInference
             // 
@@ -208,6 +273,7 @@
             this.standartInference.ResumeLayout(false);
             this.standardInferencePanel.ResumeLayout(false);
             this.standardInferencePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.changeNumeric)).EndInit();
             this.multipleInference.ResumeLayout(false);
             this.multipleInferencePanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -231,5 +297,10 @@
         private System.Windows.Forms.Panel multipleInferencePanel;
         private System.Windows.Forms.Button checkMultipleButton;
         private System.Windows.Forms.Button saveMultipleResultsButton;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Button checkSensitivity;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown changeNumeric;
     }
 }

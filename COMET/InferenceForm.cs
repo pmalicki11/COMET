@@ -56,6 +56,7 @@ namespace COMET
                 this.alternativesValues = value;
             }
         }
+
         private void generateControls()
         {
             genPlots();
@@ -246,7 +247,7 @@ namespace COMET
                     if (inputX < criterionMin || inputX > criterionMax)
                     {
                         MessageBox.Show("Input value for " + criterionName + "(" + inputX + ") is out of domain (" + criterionMin + " - " + criterionMax + ")");
-                        return null;
+                        return "Out of domain";
                     }
 
                     Double currentValue = msFunctions[criterionName][indexOfCriterion].getValue(inputX);
@@ -539,6 +540,68 @@ namespace COMET
             {
                 MessageBox.Show(ex.ToString() + "\nProgram restart needed");
             }
+        }
+
+        private void checkSensitivity_Click(object sender, EventArgs e)
+        {
+            if (resultTextBox.Text == "" || resultTextBox.Text == "Out of domain")
+            {
+                MessageBox.Show("Base result not calculated. Check for result first.");
+                return;
+            }
+
+            SensitivityResults sResults = new SensitivityResults(getStringFromInputVariables(inputVariables), resultTextBox.Text);
+            String title;
+
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                List<FuzzyVariableControl> inputVars = copyList(inputVariables);
+                Double varValue = Convert.ToDouble(inputVars[i].ValueOfVariable);
+                
+                Double lowerVarValue = varValue - ((Convert.ToDouble(changeNumeric.Value) * varValue) / 100);
+                inputVars[i].ValueOfVariable = lowerVarValue.ToString();
+                String lowerResult = inference(inputVars, false);
+                if (lowerResult == "" || lowerResult == "Out of domain")
+                {
+                    return;
+                }
+                title = inputVars[i].NameOfVariable + " - " + changeNumeric.Value.ToString() + "%";
+                sResults.addResult(title, getStringFromInputVariables(inputVars), lowerResult);
+
+
+                Double upperVarValue = varValue + ((Convert.ToDouble(changeNumeric.Value) * varValue) / 100);
+                inputVars[i].ValueOfVariable = upperVarValue.ToString();
+                String upperResult = inference(inputVars, false);
+                if (upperResult == "" || upperResult == "Out of domain")
+                {
+                    return;
+                }
+                title = inputVars[i].NameOfVariable + " + " + changeNumeric.Value.ToString() + "%";
+                sResults.addResult(title, getStringFromInputVariables(inputVars), upperResult);
+            }
+            sResults.StartPosition = FormStartPosition.CenterScreen;
+            sResults.Show();
+        }
+
+        private String getStringFromInputVariables(List<FuzzyVariableControl> inputVars)
+        {
+            String res = "";
+            for (int i = 0; i < inputVars.Count; i++)
+            {
+                res += inputVars[i].NameOfVariable + ": " + inputVars[i].ValueOfVariable + "\n";
+            }
+            return res;
+        }
+
+        private List<FuzzyVariableControl> copyList(List<FuzzyVariableControl> source)
+        {
+            List<FuzzyVariableControl> res = new List<FuzzyVariableControl>();
+            for (int i = 0; i < source.Count; i++)
+            {
+                res.Add(new FuzzyVariableControl(source[i].NameOfVariable));
+                res[i].ValueOfVariable = source[i].ValueOfVariable;
+            }
+            return res;
         }
 
         #region Old functions
