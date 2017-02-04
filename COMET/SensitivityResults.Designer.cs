@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SensitivityResults));
             this.resultsPanel = new System.Windows.Forms.Panel();
             this.baseResult = new COMET.SensitivityResultSingle();
             this.SuspendLayout();
@@ -37,7 +38,7 @@
             this.resultsPanel.AutoScroll = true;
             this.resultsPanel.Location = new System.Drawing.Point(317, 12);
             this.resultsPanel.Name = "resultsPanel";
-            this.resultsPanel.Size = new System.Drawing.Size(311, 373);
+            this.resultsPanel.Size = new System.Drawing.Size(325, 373);
             this.resultsPanel.TabIndex = 0;
             // 
             // baseResult
@@ -46,11 +47,9 @@
             this.baseResult.Input = "input";
             this.baseResult.Location = new System.Drawing.Point(12, 12);
             this.baseResult.Name = "baseResult";
-            this.baseResult.Result = "Result: Result: Result: Result: Result: Result: Result: Result: Result: Result: r" +
-    "esult";
-            this.baseResult.ResultChange = "Result change: Result change: Result change: Result change: Result change: Result" +
-    " change: Result change: Result change: Result change: Result change: result chan" +
-    "ge%%%%%%%%%%";
+            this.baseResult.Result = "Result: Result: Result: Result: Result: Result: Result: Result: Result: Result: R" +
+    "esult: Result: Result: result";
+            this.baseResult.ResultChange = resources.GetString("baseResult.ResultChange");
             this.baseResult.Size = new System.Drawing.Size(300, 150);
             this.baseResult.TabIndex = 1;
             this.baseResult.Title = "title";
@@ -59,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 397);
+            this.ClientSize = new System.Drawing.Size(654, 397);
             this.Controls.Add(this.baseResult);
             this.Controls.Add(this.resultsPanel);
             this.Name = "SensitivityResults";

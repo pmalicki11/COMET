@@ -76,9 +76,9 @@
             // 
             // resultTextBox
             // 
-            this.resultTextBox.Location = new System.Drawing.Point(425, 36);
+            this.resultTextBox.Location = new System.Drawing.Point(401, 36);
             this.resultTextBox.Name = "resultTextBox";
-            this.resultTextBox.Size = new System.Drawing.Size(52, 20);
+            this.resultTextBox.Size = new System.Drawing.Size(100, 20);
             this.resultTextBox.TabIndex = 2;
             // 
             // plotsGroupBox

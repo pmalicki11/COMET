@@ -260,7 +260,7 @@ namespace COMET
                 }
                 endMfValue.Add(criterionMfValue = criterionMfValue * objectList[i].Preference);
             }
-            return Math.Round(endMfValue.Sum(), 4).ToString();
+            return Math.Round(endMfValue.Sum(), 8).ToString();
         }
 
         private void removeIntersectionsFromPlots()

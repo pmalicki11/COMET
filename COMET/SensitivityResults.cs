@@ -31,7 +31,7 @@ namespace COMET
             res.Input = input;
             res.Result = result;
             Double currentResult = Convert.ToDouble(result);
-            res.ResultChange = Math.Round(((currentResult - bResult) / bResult * 100), 4).ToString();
+            res.ResultChange = Math.Round(((currentResult - bResult) / bResult * 100), 8).ToString();
             res.Location = new Point(0, lastLocation);
             resultsPanel.Controls.Add(res);
             lastLocation += res.Size.Height + 2;
