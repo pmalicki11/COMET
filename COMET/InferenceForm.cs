@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ExcelLibrary.SpreadSheet;
+using WPFSurfacePlot3D;
+using SurfacePlot3D;
 
 namespace COMET
 {
@@ -39,6 +41,7 @@ namespace COMET
             criteria = getCriteriaFromObjectList();
             msFunctions = genetareMembershipFunctions(criteria);
             generateControls();
+            progressBar.Visible = false;
         }
 
         public int AlternativesNumber
@@ -129,6 +132,7 @@ namespace COMET
                 }
                 standardInferencePanel.Controls.Add(variableControl);
                 inputVariables.Add(variableControl);
+                checkedListBox.Items.Add(variableControl.NameOfVariable);
             }
         }
 
@@ -610,6 +614,89 @@ namespace COMET
                 res[i].ValueOfVariable = source[i].ValueOfVariable;
             }
             return res;
+        }
+
+        private void sensitivityGraph_Click(object sender, EventArgs e)
+        {
+            if (checkedListBox.CheckedIndices.Count != 2)
+            {
+                MessageBox.Show("Please select 2 criteria");
+                return;
+            }
+
+
+            List<FuzzyVariableControl> toInference = copyList(inputVariables);
+            List<Double> firstList = null;
+            List<Double> secondList = null;
+            int firstListIndex = 0;
+            int secondListIndex = 0;
+
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                if (checkedListBox.CheckedIndices.Contains(i))
+                {
+                    if (firstList == null)
+                    {
+                        firstList = genArrayFromCriterion(i, 1);
+                        firstListIndex = i;
+                    }
+                    else
+                    {
+                        secondList = genArrayFromCriterion(i, 1);
+                        secondListIndex = i;
+                    }
+                }
+                else if (inputVariables[i].ValueOfVariable.Length > 0)
+                {
+                    toInference[i].ValueOfVariable = inputVariables[i].ValueOfVariable;
+                }
+                else
+                {
+                    MessageBox.Show("Input variable " + inputVariables[i].NameOfVariable + " can't be empty!");
+                    return;
+                }
+            }
+
+            Double[,] resultsArray = new Double[firstList.Count, secondList.Count];
+
+            progressBar.Visible = true;
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                for (int j = 0; j < secondList.Count; j++)
+                {
+                    toInference[firstListIndex].ValueOfVariable = firstList[i].ToString();
+                    toInference[secondListIndex].ValueOfVariable = secondList[j].ToString();
+                    resultsArray[i, j] = Convert.ToDouble(inference(toInference, false));
+                }
+                progressBar.Value = i;
+            }
+
+            progressBar.Visible = false;
+
+            MainWindow window = new MainWindow(resultsArray, firstList.ToArray(), secondList.ToArray());
+            window.Show();
+        }
+
+        private List<Double> genArrayFromCriterion(int index, int step)
+        {
+            Double min = criteria[inputVariables[index].NameOfVariable].Min();
+            Double max = criteria[inputVariables[index].NameOfVariable].Max();
+            Double range = max - min;
+            List<Double> values = new List<double>();
+
+            for (int i = 0; i <= 100; i = i + step)
+            {
+                if (i == 0)
+                {
+                    values.Add(min);
+                }
+                else
+                {
+                    values.Add(min + (range * i / 100));
+                }
+            }
+            return values;
         }
 
         #region Old functions
