@@ -269,7 +269,7 @@
             // progressLabel
             // 
             this.progressLabel.AutoSize = true;
-            this.progressLabel.Location = new System.Drawing.Point(703, 149);
+            this.progressLabel.Location = new System.Drawing.Point(662, 149);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(35, 13);
             this.progressLabel.TabIndex = 11;
