@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ExcelLibrary.SpreadSheet;
-using WPFSurfacePlot3D;
-using SurfacePlot3D;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace COMET
 {
@@ -42,6 +42,7 @@ namespace COMET
             msFunctions = genetareMembershipFunctions(criteria);
             generateControls();
             progressBar.Visible = false;
+            progressLabel.Visible = false;
         }
 
         public int AlternativesNumber
@@ -453,7 +454,7 @@ namespace COMET
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Bad file format!");
+                MessageBox.Show("Bad file format!" + ex.ToString());
             }
         }
 
@@ -623,7 +624,7 @@ namespace COMET
                 MessageBox.Show("Please select 2 criteria");
                 return;
             }
-
+            
 
             List<FuzzyVariableControl> toInference = copyList(inputVariables);
             List<Double> firstList = null;
@@ -637,12 +638,12 @@ namespace COMET
                 {
                     if (firstList == null)
                     {
-                        firstList = genArrayFromCriterion(i, 1);
+                        firstList = genArrayFromCriterion(i, (int)changeNumeric.Value);
                         firstListIndex = i;
                     }
                     else
                     {
-                        secondList = genArrayFromCriterion(i, 1);
+                        secondList = genArrayFromCriterion(i, (int)changeNumeric.Value);
                         secondListIndex = i;
                     }
                 }
@@ -660,6 +661,8 @@ namespace COMET
             Double[,] resultsArray = new Double[firstList.Count, secondList.Count];
 
             progressBar.Visible = true;
+            progressLabel.Visible = true;
+            progressLabel.Text = "Calculating data for graph...";
 
             for (int i = 0; i < firstList.Count; i++)
             {
@@ -672,10 +675,105 @@ namespace COMET
                 progressBar.Value = i;
             }
 
-            progressBar.Visible = false;
 
-            MainWindow window = new MainWindow(resultsArray, firstList.ToArray(), secondList.ToArray());
-            window.Show();
+            Excel.Application xlApp;
+            Excel.Workbook xlWorkbook;
+            Excel.Worksheet xlWorksheet;
+            object misValue = System.Reflection.Missing.Value;
+
+            xlApp = new Excel.Application();
+            xlApp.DisplayAlerts = false;
+            xlWorkbook = xlApp.Workbooks.Add(misValue);
+            xlWorksheet = (Excel.Worksheet)xlWorkbook.Worksheets.get_Item(1);
+
+
+            progressLabel.Text = "Preparing graph data...";
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                xlWorksheet.Cells[1, i + 2] = firstList[i];
+                progressBar.Value = i;
+            }
+            
+            for (int i = 0; i < secondList.Count; i++)
+            {
+                xlWorksheet.Cells[i + 2, 1] = secondList[i];
+                progressBar.Value = i;
+            }
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                for (int j = 0; j < secondList.Count; j++)
+                {
+                    xlWorksheet.Cells[i + 2, j + 2] = resultsArray[i, j];
+                    progressBar.Value = i;
+                }
+            }
+
+
+            progressLabel.Text = "Seting up graph axis...";
+            Excel.Range chartRange;
+            Excel.ChartObjects xlCharts = (Excel.ChartObjects)xlWorksheet.ChartObjects(Type.Missing);
+            Excel.ChartObject myChart = (Excel.ChartObject)xlCharts.Add(30, 30, 600, 450);
+            Excel.Chart chartPage = myChart.Chart;
+            Console.WriteLine(getExcelColumnName(firstList.Count() + 1));
+            chartRange = xlWorksheet.get_Range("B2", getExcelColumnName(firstList.Count + 1).ToString() + (secondList.Count + 1).ToString());
+            chartPage.SetSourceData(chartRange, misValue);
+            chartPage.ChartType = Excel.XlChartType.xlSurfaceWireframe;
+            Excel.SeriesCollection series1 = (Excel.SeriesCollection)myChart.Chart.SeriesCollection(misValue);
+            
+            for (int i = 1; i <= series1.Count; i++)
+            {
+                series1.Item(i).Name = secondList[i - 1].ToString();
+                if (i <= 100)
+                {
+                    progressBar.Value = i;
+                }
+            }
+
+            
+            Excel.Range XVal_Range = xlWorksheet.get_Range("B1", getExcelColumnName(firstList.Count + 1).ToString() + "1");
+            Excel.Axis xAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
+            xAxis.CategoryNames = XVal_Range;
+            xAxis.HasTitle = true;
+            xAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[0]].NameOfVariable;
+
+            Excel.Axis yAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlSeriesAxis, Excel.XlAxisGroup.xlPrimary);
+            yAxis.HasTitle = true;
+            yAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[1]].NameOfVariable;
+            
+
+            progressBar.Hide();
+            progressLabel.Hide();
+            saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xls)|*.xls";
+            //saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xls)|*.xls|XML File (*.xml)|*.xml";
+            String patch = null;
+            
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    patch = saveFileDialog.FileName;
+                    xlWorkbook.SaveAs(patch, Excel.XlFileFormat.xlWorkbookNormal, 
+                        misValue, misValue, misValue, misValue, 
+                        Excel.XlSaveAsAccessMode.xlExclusive, 
+                        misValue, misValue, misValue, misValue, misValue);
+                    xlWorkbook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+
+                    if (MessageBox.Show("File saved. Would you like to open it?", "Saved", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                        proc.EnableRaisingEvents = false;
+                        proc.StartInfo.FileName = patch;
+                        proc.Start();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
         }
 
         private List<Double> genArrayFromCriterion(int index, int step)
@@ -697,6 +795,22 @@ namespace COMET
                 }
             }
             return values;
+        }
+
+        private string getExcelColumnName(int columnNumber)
+        {
+            int dividend = columnNumber;
+            string columnName = String.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+
+            return columnName;
         }
 
         #region Old functions

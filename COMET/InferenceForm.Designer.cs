@@ -37,6 +37,8 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.standartInference = new System.Windows.Forms.TabPage();
             this.standardInferencePanel = new System.Windows.Forms.Panel();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.sensitivityGraph = new System.Windows.Forms.Button();
             this.checkSensitivity = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,8 +48,7 @@
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
             this.saveMultipleResultsButton = new System.Windows.Forms.Button();
             this.checkMultipleButton = new System.Windows.Forms.Button();
-            this.checkedListBox = new System.Windows.Forms.CheckedListBox();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.progressLabel = new System.Windows.Forms.Label();
             this.plotsGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.standartInference.SuspendLayout();
@@ -135,6 +136,7 @@
             // standardInferencePanel
             // 
             this.standardInferencePanel.AutoScroll = true;
+            this.standardInferencePanel.Controls.Add(this.progressLabel);
             this.standardInferencePanel.Controls.Add(this.progressBar);
             this.standardInferencePanel.Controls.Add(this.checkedListBox);
             this.standardInferencePanel.Controls.Add(this.sensitivityGraph);
@@ -149,13 +151,29 @@
             this.standardInferencePanel.Size = new System.Drawing.Size(935, 184);
             this.standardInferencePanel.TabIndex = 4;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(660, 123);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(132, 23);
+            this.progressBar.TabIndex = 10;
+            // 
+            // checkedListBox
+            // 
+            this.checkedListBox.CheckOnClick = true;
+            this.checkedListBox.FormattingEnabled = true;
+            this.checkedListBox.Location = new System.Drawing.Point(660, 38);
+            this.checkedListBox.Name = "checkedListBox";
+            this.checkedListBox.Size = new System.Drawing.Size(132, 79);
+            this.checkedListBox.TabIndex = 9;
+            // 
             // sensitivityGraph
             // 
             this.sensitivityGraph.Location = new System.Drawing.Point(660, 9);
             this.sensitivityGraph.Name = "sensitivityGraph";
             this.sensitivityGraph.Size = new System.Drawing.Size(132, 23);
             this.sensitivityGraph.TabIndex = 8;
-            this.sensitivityGraph.Text = "View sensitivity graph";
+            this.sensitivityGraph.Text = "Sensitivity graph";
             this.sensitivityGraph.UseVisualStyleBackColor = true;
             this.sensitivityGraph.Click += new System.EventHandler(this.sensitivityGraph_Click);
             // 
@@ -248,21 +266,15 @@
             this.checkMultipleButton.UseVisualStyleBackColor = true;
             this.checkMultipleButton.Click += new System.EventHandler(this.checkMultipleButton_Click);
             // 
-            // checkedListBox
+            // progressLabel
             // 
-            this.checkedListBox.CheckOnClick = true;
-            this.checkedListBox.FormattingEnabled = true;
-            this.checkedListBox.Location = new System.Drawing.Point(660, 38);
-            this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(132, 79);
-            this.checkedListBox.TabIndex = 9;
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(660, 123);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(132, 23);
-            this.progressBar.TabIndex = 10;
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(703, 149);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(35, 13);
+            this.progressLabel.TabIndex = 11;
+            this.progressLabel.Text = "label3";
+            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InferenceForm
             // 
@@ -313,5 +325,6 @@
         private System.Windows.Forms.Button sensitivityGraph;
         private System.Windows.Forms.CheckedListBox checkedListBox;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label progressLabel;
     }
 }
