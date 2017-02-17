@@ -672,7 +672,7 @@ namespace COMET
                     toInference[secondListIndex].ValueOfVariable = secondList[j].ToString();
                     resultsArray[i, j] = Convert.ToDouble(inference(toInference, false));
                 }
-                progressBar.Value = i;
+                updateProgressBar(i, firstList.Count);
             }
 
 
@@ -691,13 +691,13 @@ namespace COMET
             for (int i = 0; i < firstList.Count; i++)
             {
                 xlWorksheet.Cells[1, i + 2] = firstList[i];
-                progressBar.Value = i;
+                updateProgressBar(i, firstList.Count);
             }
             
             for (int i = 0; i < secondList.Count; i++)
             {
                 xlWorksheet.Cells[i + 2, 1] = secondList[i];
-                progressBar.Value = i;
+                updateProgressBar(i, secondList.Count);
             }
 
             for (int i = 0; i < firstList.Count; i++)
@@ -705,8 +705,8 @@ namespace COMET
                 for (int j = 0; j < secondList.Count; j++)
                 {
                     xlWorksheet.Cells[i + 2, j + 2] = resultsArray[i, j];
-                    progressBar.Value = i;
                 }
+                updateProgressBar(i, firstList.Count);
             }
 
 
@@ -724,23 +724,25 @@ namespace COMET
             for (int i = 1; i <= series1.Count; i++)
             {
                 series1.Item(i).Name = secondList[i - 1].ToString();
-                if (i <= 100)
-                {
-                    progressBar.Value = i;
-                }
+                updateProgressBar(i, series1.Count);
             }
 
-            
-            Excel.Range XVal_Range = xlWorksheet.get_Range("B1", getExcelColumnName(firstList.Count + 1).ToString() + "1");
-            Excel.Axis xAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
-            xAxis.CategoryNames = XVal_Range;
-            xAxis.HasTitle = true;
-            xAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[0]].NameOfVariable;
+            if (Convert.ToDouble(xlApp.Version.Replace(".", ",")) < 15)
+            {
+                MessageBox.Show("Version of your office is too old.\nSome chart axis descriptions may be incorrect.");
+            }
+            else
+            {
+                Excel.Range XVal_Range = xlWorksheet.get_Range("B1", getExcelColumnName(firstList.Count + 1).ToString() + "1");
+                Excel.Axis xAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
+                xAxis.CategoryNames = XVal_Range;
+                xAxis.HasTitle = true;
+                xAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[0]].NameOfVariable;
 
-            Excel.Axis yAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlSeriesAxis, Excel.XlAxisGroup.xlPrimary);
-            yAxis.HasTitle = true;
-            yAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[1]].NameOfVariable;
-            
+                Excel.Axis yAxis = (Excel.Axis)chartPage.Axes(Excel.XlAxisType.xlSeriesAxis, Excel.XlAxisGroup.xlPrimary);
+                yAxis.HasTitle = true;
+                yAxis.AxisTitle.Text = inputVariables[(int)checkedListBox.CheckedIndices[1]].NameOfVariable;
+            }
 
             progressBar.Hide();
             progressLabel.Hide();
@@ -811,6 +813,11 @@ namespace COMET
             }
 
             return columnName;
+        }
+
+        private void updateProgressBar(int i, int range)
+        {
+            progressBar.Value = (int)((i * 100) / range);
         }
 
         #region Old functions

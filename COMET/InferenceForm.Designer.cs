@@ -37,6 +37,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.standartInference = new System.Windows.Forms.TabPage();
             this.standardInferencePanel = new System.Windows.Forms.Panel();
+            this.progressLabel = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.sensitivityGraph = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
             this.saveMultipleResultsButton = new System.Windows.Forms.Button();
             this.checkMultipleButton = new System.Windows.Forms.Button();
-            this.progressLabel = new System.Windows.Forms.Label();
             this.plotsGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.standartInference.SuspendLayout();
@@ -150,6 +150,16 @@
             this.standardInferencePanel.Name = "standardInferencePanel";
             this.standardInferencePanel.Size = new System.Drawing.Size(935, 184);
             this.standardInferencePanel.TabIndex = 4;
+            // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(662, 149);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(35, 13);
+            this.progressLabel.TabIndex = 11;
+            this.progressLabel.Text = "label3";
+            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progressBar
             // 
@@ -265,16 +275,6 @@
             this.checkMultipleButton.Text = "Check";
             this.checkMultipleButton.UseVisualStyleBackColor = true;
             this.checkMultipleButton.Click += new System.EventHandler(this.checkMultipleButton_Click);
-            // 
-            // progressLabel
-            // 
-            this.progressLabel.AutoSize = true;
-            this.progressLabel.Location = new System.Drawing.Point(662, 149);
-            this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(35, 13);
-            this.progressLabel.TabIndex = 11;
-            this.progressLabel.Text = "label3";
-            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InferenceForm
             // 
