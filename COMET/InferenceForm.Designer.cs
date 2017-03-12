@@ -37,6 +37,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.standartInference = new System.Windows.Forms.TabPage();
             this.standardInferencePanel = new System.Windows.Forms.Panel();
+            this.saveResults = new System.Windows.Forms.Button();
             this.progressLabel = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.checkedListBox = new System.Windows.Forms.CheckedListBox();
@@ -137,6 +138,7 @@
             // standardInferencePanel
             // 
             this.standardInferencePanel.AutoScroll = true;
+            this.standardInferencePanel.Controls.Add(this.saveResults);
             this.standardInferencePanel.Controls.Add(this.progressLabel);
             this.standardInferencePanel.Controls.Add(this.progressBar);
             this.standardInferencePanel.Controls.Add(this.checkedListBox);
@@ -152,6 +154,16 @@
             this.standardInferencePanel.Size = new System.Drawing.Size(935, 184);
             this.standardInferencePanel.TabIndex = 4;
             // 
+            // saveResults
+            // 
+            this.saveResults.Location = new System.Drawing.Point(660, 9);
+            this.saveResults.Name = "saveResults";
+            this.saveResults.Size = new System.Drawing.Size(142, 23);
+            this.saveResults.TabIndex = 12;
+            this.saveResults.Text = "Save results for sensitivity";
+            this.saveResults.UseVisualStyleBackColor = true;
+            this.saveResults.Click += new System.EventHandler(this.saveResults_Click);
+            // 
             // progressLabel
             // 
             this.progressLabel.AutoSize = true;
@@ -166,7 +178,7 @@
             // 
             this.progressBar.Location = new System.Drawing.Point(660, 123);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(132, 23);
+            this.progressBar.Size = new System.Drawing.Size(142, 23);
             this.progressBar.TabIndex = 10;
             // 
             // checkedListBox
@@ -175,16 +187,16 @@
             this.checkedListBox.FormattingEnabled = true;
             this.checkedListBox.Location = new System.Drawing.Point(660, 38);
             this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(132, 79);
+            this.checkedListBox.Size = new System.Drawing.Size(142, 79);
             this.checkedListBox.TabIndex = 9;
             // 
             // sensitivityGraph
             // 
-            this.sensitivityGraph.Location = new System.Drawing.Point(660, 9);
+            this.sensitivityGraph.Location = new System.Drawing.Point(486, 62);
             this.sensitivityGraph.Name = "sensitivityGraph";
             this.sensitivityGraph.Size = new System.Drawing.Size(132, 23);
             this.sensitivityGraph.TabIndex = 8;
-            this.sensitivityGraph.Text = "Sensitivity graph";
+            this.sensitivityGraph.Text = "Sensitivity graph (beta)";
             this.sensitivityGraph.UseVisualStyleBackColor = true;
             this.sensitivityGraph.Click += new System.EventHandler(this.sensitivityGraph_Click);
             // 
@@ -339,5 +351,6 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label progressLabel;
         private System.Windows.Forms.Button ruleBase;
+        private System.Windows.Forms.Button saveResults;
     }
 }

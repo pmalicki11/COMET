@@ -847,6 +847,107 @@ namespace COMET
             ruleBase.Show();
         }
 
+        private void saveResults_Click(object sender, EventArgs e)
+        {
+            if (checkedListBox.CheckedIndices.Count != 2)
+            {
+                MessageBox.Show("Please select 2 criteria");
+                return;
+            }
+
+
+            List<FuzzyVariableControl> toInference = copyList(inputVariables);
+            List<Double> firstList = null;
+            List<Double> secondList = null;
+            int firstListIndex = 0;
+            int secondListIndex = 0;
+
+            for (int i = 0; i < inputVariables.Count; i++)
+            {
+                if (checkedListBox.CheckedIndices.Contains(i))
+                {
+                    if (firstList == null)
+                    {
+                        firstList = genArrayFromCriterion(i, (int)changeNumeric.Value);
+                        firstListIndex = i;
+                    }
+                    else
+                    {
+                        secondList = genArrayFromCriterion(i, (int)changeNumeric.Value);
+                        secondListIndex = i;
+                    }
+                }
+                else if (inputVariables[i].ValueOfVariable.Length > 0)
+                {
+                    toInference[i].ValueOfVariable = inputVariables[i].ValueOfVariable;
+                }
+                else
+                {
+                    MessageBox.Show("Input variable " + inputVariables[i].NameOfVariable + " can't be empty!");
+                    return;
+                }
+            }
+
+            Double[,] resultsArray = new Double[firstList.Count, secondList.Count];
+
+            progressBar.Visible = true;
+            progressLabel.Visible = true;
+            progressLabel.Text = "Calculating data..";
+
+            for (int i = 0; i < firstList.Count; i++)
+            {
+                for (int j = 0; j < secondList.Count; j++)
+                {
+                    toInference[firstListIndex].ValueOfVariable = firstList[i].ToString();
+                    toInference[secondListIndex].ValueOfVariable = secondList[j].ToString();
+                    resultsArray[i, j] = Convert.ToDouble(inference(toInference, false));
+                }
+                updateProgressBar(i, firstList.Count);
+            }
+
+            progressBar.Hide();
+            progressLabel.Hide();
+            saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "TXT file (*.txt)|*.txt";
+            String patch = null;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    patch = saveFileDialog.FileName.Remove(saveFileDialog.FileName.Length - 4);
+                    String timeNow = DateTime.Now.ToString().Replace("-", "").Replace(":", "");
+
+                    String file1Patch = patch + "_" + checkedListBox.CheckedItems[0] + "_" + timeNow + ".txt";
+                    String file2Patch = patch + "_" + checkedListBox.CheckedItems[1] + "_" + timeNow + ".txt";
+                    String file3Patch = patch + "_Results_" + timeNow + ".txt";
+                    System.IO.StreamWriter file1 = new System.IO.StreamWriter(file1Patch, true);
+                    System.IO.StreamWriter file2 = new System.IO.StreamWriter(file2Patch, true);
+                    System.IO.StreamWriter file3 = new System.IO.StreamWriter(file3Patch, true);
+
+                    for (int i = 0; i < firstList.Count; i++)
+                    {
+                        for (int j = 0; j < secondList.Count; j++)
+                        {
+                            file1.Write(firstList[i].ToString().Replace(',', '.') + " ");
+                            file2.Write(secondList[j].ToString().Replace(',', '.') + " ");
+                            file3.Write(resultsArray[i, j].ToString().Replace(',', '.') + " ");
+                        }
+                        file1.Write("\n");
+                        file2.Write("\n");
+                        file3.Write("\n");
+                    }
+                    file1.Close();
+                    file2.Close();
+                    file3.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
+
         #region Old functions
         /*private void generateFuzzySystem()
         {
