@@ -32,6 +32,7 @@ namespace COMET
         List<AlternativeControl> alternativeControls;
         SaveFileDialog saveFileDialog;
         Double[,] alternativesValues;
+        String rules;
         
 
         public InferenceForm(List<CharacteristicObject> list)
@@ -43,6 +44,26 @@ namespace COMET
             generateControls();
             progressBar.Visible = false;
             progressLabel.Visible = false;
+            rules = objectListToRules();
+        }
+
+        private String objectListToRules()
+        {
+            String result = "";
+            for (int i = 0; i < objectList.Count; i++)
+            {
+                result += "R" + (i + 1) + ": ";
+                for (int j = 0; j < objectList[0].Size(); j++)
+                {
+                    result += "IF " + objectList[i].names[j] + "~" + objectList[i].values[j];
+                    if (j + 1 != objectList[0].Size())
+                    {
+                        result += " AND ";
+                    }
+                }
+                result += " THEN " + objectList[i].Preference + "\n\n";
+            }
+            return result;
         }
 
         public int AlternativesNumber
@@ -818,6 +839,12 @@ namespace COMET
         private void updateProgressBar(int i, int range)
         {
             progressBar.Value = (int)((i * 100) / range);
+        }
+
+        private void ruleBase_Click(object sender, EventArgs e)
+        {
+            Rule_base ruleBase = new Rule_base(rules);
+            ruleBase.Show();
         }
 
         #region Old functions

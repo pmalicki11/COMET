@@ -49,6 +49,7 @@
             this.multipleInferencePanel = new System.Windows.Forms.Panel();
             this.saveMultipleResultsButton = new System.Windows.Forms.Button();
             this.checkMultipleButton = new System.Windows.Forms.Button();
+            this.ruleBase = new System.Windows.Forms.Button();
             this.plotsGroupBox.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.standartInference.SuspendLayout();
@@ -104,7 +105,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(12, 603);
+            this.backButton.Location = new System.Drawing.Point(12, 607);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(100, 23);
             this.backButton.TabIndex = 1;
@@ -116,7 +117,7 @@
             // 
             this.tabControl.Controls.Add(this.standartInference);
             this.tabControl.Controls.Add(this.multipleInference);
-            this.tabControl.Location = new System.Drawing.Point(12, 387);
+            this.tabControl.Location = new System.Drawing.Point(12, 395);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(943, 210);
@@ -276,11 +277,22 @@
             this.checkMultipleButton.UseVisualStyleBackColor = true;
             this.checkMultipleButton.Click += new System.EventHandler(this.checkMultipleButton_Click);
             // 
+            // ruleBase
+            // 
+            this.ruleBase.Location = new System.Drawing.Point(854, 385);
+            this.ruleBase.Name = "ruleBase";
+            this.ruleBase.Size = new System.Drawing.Size(93, 23);
+            this.ruleBase.TabIndex = 5;
+            this.ruleBase.Text = "Show rule base";
+            this.ruleBase.UseVisualStyleBackColor = true;
+            this.ruleBase.Click += new System.EventHandler(this.ruleBase_Click);
+            // 
             // InferenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 638);
+            this.Controls.Add(this.ruleBase);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.plotsGroupBox);
@@ -326,5 +338,6 @@
         private System.Windows.Forms.CheckedListBox checkedListBox;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.Button ruleBase;
     }
 }

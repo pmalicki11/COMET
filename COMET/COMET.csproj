@@ -91,6 +91,12 @@
     <Compile Include="InferenceAlternatives.Designer.cs">
       <DependentUpon>InferenceAlternatives.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rule base.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rule base.Designer.cs">
+      <DependentUpon>Rule base.cs</DependentUpon>
+    </Compile>
     <Compile Include="SensitivityResults.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Rule base.resx">
+      <DependentUpon>Rule base.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SensitivityResults.resx">
       <DependentUpon>SensitivityResults.cs</DependentUpon>
     </EmbeddedResource>
