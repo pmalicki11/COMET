@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="ebb31938-a337-4673-b379-f1f18c126421"
+  name="SpreadSheet"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="dc55dc25-151a-4024-908b-5e6102cd7217"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DExcelLibrary.SpreadSheet"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="68a48388-7d0d-42fe-8a3f-b803a558e8c1"
+        name="Cell"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="bd3177d1-2b6b-46c7-8a19-221ea1080434"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FPaweł%2FDesktop%2FCOMET%2FCOMET%2FCOMET%2FReferences%2FExcelLibrary.dll Namespace%3DExcelLibrary.SpreadSheet Type%3DCell"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="2901dd25-ad8a-41b0-b564-ce80b9748222"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bc255a50-a8a6-4e7e-8490-8722900f434a">
+                <propertyInstance
+                  Id="92b7e1c5-0053-4dfb-96bd-b75d13e32e71"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4891464c-14d8-499b-8659-aa7213bab38d">
+                <propertyInstance
+                  Id="a69431fb-6716-4988-9499-ceae9c4742a7"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6478d837-2abd-4978-bc3e-ef74c9f02851">
+                <propertyInstance
+                  Id="c7ec582b-4e80-4420-8082-51b68099d4cd"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6d9538bc-2b3d-4ce4-b20a-afc3f90c4107">
+                <propertyInstance
+                  Id="104f7bcf-4f75-4aa0-a11b-786e9abcec62"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b8bd8ce6-cabd-44ef-aeba-3b5e0b6186bd">
+                <propertyInstance
+                  Id="5b2491dd-fa98-4e35-9e70-91ac1518ff96"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="66f953dc-ff24-41f0-b1ba-21641565a7ca"
+        name="Worksheet"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="cfcba1ac-9566-4e1d-9689-90d37d451faf"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FPaweł%2FDesktop%2FCOMET%2FCOMET%2FCOMET%2FReferences%2FExcelLibrary.dll Namespace%3DExcelLibrary.SpreadSheet Type%3DWorksheet"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4e3790f7-4e2e-4c22-916a-22522b3c66e5"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="52957ace-1e78-4f4e-a7ba-e2628a60b4c9">
+                <propertyInstance
+                  Id="4d2644b1-507c-45b7-b119-4fedc75f304a"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="df395b8a-8447-4c51-86f5-5f90d157cd47">
+                <propertyInstance
+                  Id="a970d15f-ced7-43a8-b93b-3335633e18f5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="acae09a8-24c1-46a6-879f-b5385abecfcf">
+                <propertyInstance
+                  Id="a2a45e41-0d29-439e-8ccc-09719c0c7d53"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="981b1770-9c29-4d2a-88a5-79e2301b4454">
+                <propertyInstance
+                  Id="9fdade70-69e2-4eb1-8983-18ee40c4df17"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="01515804-1717-4357-8ef7-64ffff7463cc">
+                <propertyInstance
+                  Id="cc384ec4-9928-4bbf-93af-a5730b28063b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9bd4dc6c-1d4f-408b-a52f-e6788a4aaa3d"
+        name="Workbook"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="fb412302-bdc0-46ad-8603-9c2b4b4c8d7c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FC:%2FUsers%2FPaweł%2FDesktop%2FCOMET%2FCOMET%2FCOMET%2FReferences%2FExcelLibrary.dll Namespace%3DExcelLibrary.SpreadSheet Type%3DWorkbook"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="1f30a5cb-ba86-48e6-af90-ba3f3d5d8f66"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="be29f4b7-5cb4-41b3-b635-52ddbe2e7362">
+                <propertyInstance
+                  Id="bc454750-0645-4815-9105-9df9e85b87f8"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="517beab5-e34e-4e8c-8f66-39eede756e61">
+                <propertyInstance
+                  Id="437099b2-34e2-4089-87e9-81157b0a138e"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1d3fcc1f-628f-4606-b4ee-4373a867e356">
+                <propertyInstance
+                  Id="2c7532e4-2c43-4013-ab10-450b4b3f7d87"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9e5f8f52-031b-4bf1-9aea-ee337d1258f3">
+                <propertyInstance
+                  Id="de801815-500e-4629-bf3b-a56b372ccea2"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f5bf649e-b72e-46b1-b072-568bf3835829">
+                <propertyInstance
+                  Id="9bc5c0ce-3bc1-483e-829a-36f5a9a89b4f"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
