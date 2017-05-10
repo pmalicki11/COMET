@@ -46,18 +46,19 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(258, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(100, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.label2.Text = "Result: 0,00000000";
             // 
             // AlternativeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AlternativeControl";
-            this.Size = new System.Drawing.Size(296, 20);
+            this.Size = new System.Drawing.Size(396, 20);
             this.ResumeLayout(false);
             this.PerformLayout();
 

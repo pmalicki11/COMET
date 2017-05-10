@@ -595,10 +595,10 @@ namespace COMET
                 Double lowerVarValue = varValue - ((Convert.ToDouble(changeNumeric.Value) * varValue) / 100);
                 inputVars[i].ValueOfVariable = lowerVarValue.ToString();
                 String lowerResult = inference(inputVars, false);
-                if (lowerResult == "" || lowerResult == "Out of domain")
-                {
-                    return;
-                }
+                //if (lowerResult == "" || lowerResult == "Out of domain")
+                //{
+                //    return;
+                //}
                 title = inputVars[i].NameOfVariable + " - " + changeNumeric.Value.ToString() + "%";
                 sResults.addResult(title, getStringFromInputVariables(inputVars), lowerResult);
 
@@ -606,10 +606,10 @@ namespace COMET
                 Double upperVarValue = varValue + ((Convert.ToDouble(changeNumeric.Value) * varValue) / 100);
                 inputVars[i].ValueOfVariable = upperVarValue.ToString();
                 String upperResult = inference(inputVars, false);
-                if (upperResult == "" || upperResult == "Out of domain")
-                {
-                    return;
-                }
+                //if (upperResult == "" || upperResult == "Out of domain")
+                //{
+                //    return;
+                //}
                 title = inputVars[i].NameOfVariable + " + " + changeNumeric.Value.ToString() + "%";
                 sResults.addResult(title, getStringFromInputVariables(inputVars), upperResult);
             }

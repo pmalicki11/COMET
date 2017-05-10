@@ -76,7 +76,7 @@ namespace COMET
                 for (int j = 0; j < objectList[0].Size(); j++)
                 {
                     characteristicObjectsWorksheet.Cells[i, 0] = new Cell("O" + i);
-                    characteristicObjectsWorksheet.Cells[i, j + 1] = new Cell(objectList[i - 1].values[j], CellFormat.General);
+                    characteristicObjectsWorksheet.Cells[i, j + 1] = new Cell((objectList[i - 1].values[j]).Replace('.',','), CellFormat.General);
                 }
                 if (pairsLeft == 0)
                 {
